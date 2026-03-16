@@ -202,6 +202,7 @@
           const modalSource = document.getElementById('modalSource');
           const modalClose = document.getElementById('modalClose');
           const modalBackdrop = document.getElementById('modalBackdrop');
+          const modalContent = document.querySelector('.modal-content');
 
           function openModal(img){
             modalImage.src = img.src;
@@ -211,19 +212,35 @@
             modalDate.textContent = img.dataset.date ? 'Date: ' + img.dataset.date : '';
             modalPlace.textContent = img.dataset.place ? 'Place: ' + img.dataset.place : '';
             modalSource.innerHTML = img.dataset.source ? 'Source: <a href="'+img.dataset.source+'" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>' : '';
+            // show modal (use aria-hidden + CSS transitions)
             modal.setAttribute('aria-hidden','false');
             document.body.style.overflow = 'hidden';
           }
 
           function closeModal(){
+            // start hide animation by setting aria-hidden true
             modal.setAttribute('aria-hidden','true');
-            modalImage.src = '';
             document.body.style.overflow = '';
           }
+
+          // after hide transition, clear image src to free memory
+          modalContent.addEventListener('transitionend', (e) => {
+            if (modal.getAttribute('aria-hidden') === 'true' && e.propertyName === 'opacity') {
+              modalImage.src = '';
+            }
+          });
 
           document.querySelectorAll('.art-card img').forEach(img => {
             img.style.cursor = 'zoom-in';
             img.addEventListener('click', () => openModal(img));
+            img.addEventListener('error', () => {
+              // replace failed image with local placeholder
+              if (!img.dataset._errored) {
+                img.dataset._errored = '1';
+                img.src = 'assets/placeholder.svg';
+                img.alt = 'Placeholder image';
+              }
+            });
           });
 
           modalClose.addEventListener('click', closeModal);
