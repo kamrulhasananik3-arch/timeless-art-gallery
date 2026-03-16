@@ -4,138 +4,189 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeless Art Gallery</title>
-  <style>
-    html { font-size: clamp(17px, 1.4vw + 14px, 20px); }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes scale-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8eef8 100%); color: #2c3e50; line-height: 1.8; animation: fadeIn 0.7s ease; }
-    header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: clamp(48px, 8vw, 110px) 24px clamp(36px, 5vw, 80px); text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden; }
-    header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
-    header > * { position: relative; z-index: 1; }
-    .logo-container { max-width: clamp(220px, 28vw, 420px); margin: 0 auto 30px; animation: slideUp 0.8s ease 0.2s both; }
-    .logo { width: 100%; height: auto; display: block; filter: brightness(1.2) drop-shadow(0 4px 8px rgba(255,255,255,0.3)); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .logo:hover { transform: scale(1.08) rotate(2deg); }
-    header h1 { margin: 0; font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight: 700; letter-spacing: 2px; animation: slideUp 0.8s ease 0.3s both; background: linear-gradient(135deg, #fff 0%, #e0e8ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    nav { margin-top: 30px; animation: slideUp 0.8s ease 0.4s both; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-    nav a { color: #e0e8ff; text-decoration: none; font-weight: 600; font-size: 1rem; padding: 12px 22px; border-radius: 25px; transition: all 0.3s ease; position: relative; }
-    nav a::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 25px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; z-index: -1; }
-    nav a:hover::before { transform: scaleX(1); } nav a:hover { color: white; }
-    .hero { background: linear-gradient(135deg, rgba(232, 238, 248, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%); padding: clamp(56px, 7vw, 110px) 24px; text-align: center; min-height: 32vh; display: grid; place-items: center; animation: fadeIn 1s ease 0.5s both; }
-    .hero h2 { font-size: clamp(2rem, 4vw, 3.4rem); color: #1a1a2e; margin-bottom: 20px; animation: slideUp 0.8s ease 0.6s both; }
-    .hero p { font-size: clamp(1.05rem, 1.7vw, 1.45rem); color: #555; max-width: 900px; margin: 0 auto; animation: slideUp 0.8s ease 0.7s both; }
-    .content { max-width: min(1400px, 94vw); margin: 72px auto; padding: 0 24px; }
-    .art-section { margin-bottom: 80px; animation: slideUp 0.8s ease backwards; }
-    .content h2 { color: #1a1a2e; font-size: clamp(1.25rem, 2.2vw, 2rem); margin-bottom: 15px; padding-bottom: 15px; border-bottom: 3px solid; border-image: linear-gradient(135deg, #007bff, #0056b3) 1; transition: all 0.3s ease; }
-    .content h2:hover { transform: translateX(10px); }
-    .art-container { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 35px rgba(0,0,0,0.08); transition: all 0.4s ease; margin-bottom: 40px; }
-    .art-container:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.15); transform: translateY(-8px); }
-    .content img { width: 100%; min-height: 320px; display: block; object-fit: cover; border-radius: 15px; transition: transform 0.5s ease, filter 0.5s ease; }
-    .art-container:hover img { transform: scale(1.04); filter: brightness(1.1); }
-    .caption { text-align: center; font-style: italic; color: #666; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #f0f4ff 100%); font-size: 1rem; font-weight: 500; }
-    footer { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #aaa; text-align: center; padding: 35px 20px; font-size: 0.95rem; margin-top: 80px; animation: slideUp 0.8s ease backwards; }
-    .fab-upload { position: fixed; bottom: 30px; right: 30px; width: 64px; height: 64px; background: linear-gradient(135deg, #007bff, #0056b3); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0, 123, 255, 0.35); cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1000; overflow: hidden; text-decoration: none; animation: scale-in 0.5s ease; }
-    .fab-upload::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%); border-radius: 50%; }
-    .fab-upload img { width: 36px; height: 36px; object-fit: contain; position: relative; z-index: 1; filter: brightness(0) invert(1); transition: transform 0.3s ease; }
-    .fab-upload:hover { background: linear-gradient(135deg, #0056b3, #003d82); transform: translateY(-6px) scale(1.1); box-shadow: 0 12px 35px rgba(0, 123, 255, 0.45); }
-    .fab-upload:hover img { transform: scale(1.2); }
-    @media (max-width: 768px) { header h1 { font-size: 2rem; } .hero h2 { font-size: 1.8rem; } .content h2 { font-size: 1.5rem; } .logo-container { max-width: 260px; } nav { gap: 10px; } nav a { padding: 8px 15px; font-size: 0.9rem; } .fab-upload { width: 56px; height: 56px; bottom: 20px; right: 20px; } .fab-upload img { width: 32px; height: 32px; } }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Timeless Art Gallery — curated exhibitions, artist profiles, and an open submissions gallery.">
 </head>
 <body>
 
   <header>
-    <div class="logo-container">
-      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" class="logo">
+    <div class="brand">
+      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" />
+      <h1>Timeless Art Gallery</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="explore.html">Explore</a>
+        <a href="artists.html">Artists</a>
+        <a href="information.html">Information</a>
+        <a href="upload.html">Upload</a>
+      </nav>
     </div>
-    <h1>Timeless Art Gallery</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="explore.html">Explore</a>
-      <a href="artists.html">Artists</a>
-      <a href="information.html">Information</a>
-      <a href="upload.html">Upload</a>
-    </nav>
   </header>
 
   <section class="hero">
-    <h2>Discover Masterpieces Across Centuries</h2>
-    <p>From divine Renaissance frescoes to swirling Post-Impressionist skies and vibrant contemporary abstracts</p>
+    <div>
+      <h2>Curated art, timeless stories, and modern voices.</h2>
+      <p>Explore a living gallery that pairs historic masterworks with emerging contemporary perspectives.</p>
+      <div class="hero-actions">
+        <a class="btn" href="gallery.html">Start Browsing</a>
+        <a class="btn secondary" href="artists.html">Meet the Artists</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <span>Current Focus</span>
+      <h3>Light, Surface, Memory</h3>
+      <p>A rotating exhibition on how artists across centuries render atmosphere and emotion.</p>
+      <div class="stats">
+        <div class="stat">
+          <strong>28</strong>
+          <span>Featured works</span>
+        </div>
+        <div class="stat">
+          <strong>9</strong>
+          <span>Studios</span>
+        </div>
+        <div class="stat">
+          <strong>6</strong>
+          <span>Essays</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <main class="content">
-    <div class="art-section" style="animation-delay: 0.8s;">
-      <h2>Post-Impressionism – Vincent van Gogh</h2>
-      <div class="art-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Starry Night">
-        <div class="caption">Vincent van Gogh – The Starry Night (1889)</div>
-      </div>
+    <section class="feature-grid">
+      <article class="feature-card">
+        <h4>Curated Exhibitions</h4>
+        <p>Seasonal collections curated to highlight craft, context, and bold experimentation.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Artist Profiles</h4>
+        <p>Learn the stories and studios behind the work through short interviews and notes.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Open Submissions</h4>
+        <p>Upload your work and join the next rotation alongside global creators.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Learning Notes</h4>
+        <p>Contextual essays and timelines for deeper understanding of each movement.</p>
+      </article>
+    </section>
 
-      <div class="art-container">
-        <img src="https://blog.flametreepublishing.com/hubfs/vangoghwide1.jpg" alt="Starry Night Over the Rhone">
-        <div class="caption">Vincent van Gogh – Starry Night Over the Rhone (1888)</div>
+    <section class="collection">
+      <div class="collection-header">
+        <h3>Highlights from the collection</h3>
+        <p>Six pieces chosen to represent the breadth of mediums and time periods featured this season.</p>
       </div>
-    </div>
+      <div class="art-grid">
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg" alt="Mona Lisa" loading="lazy" width="800" height="1000" />
+          <div class="art-meta">
+            <span>Renaissance</span>
+            <h4>Mona Lisa</h4>
+            <p>Leonardo da Vinci · c. 1503–1506 · Source: <a href="https://commons.wikimedia.org/wiki/File:Mona_Lisa.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Starry Night" loading="lazy" width="1280" height="960" />
+          <div class="art-meta">
+            <span>Post-Impressionism</span>
+            <h4>The Starry Night</h4>
+            <p>Vincent van Gogh · 1889 · Source: <a href="https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Claude_Monet_-_The_Water_Lily_Pond.jpg/1024px-Claude_Monet_-_The_Water_Lily_Pond.jpg" alt="The Water Lily Pond" loading="lazy" width="1024" height="683" />
+          <div class="art-meta">
+            <span>Impressionism</span>
+            <h4>The Water Lily Pond</h4>
+            <p>Claude Monet · 1899 · Source: <a href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_The_Water_Lily_Pond.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg" alt="Guernica" loading="lazy" width="1200" height="823" />
+          <div class="art-meta">
+            <span>Modern</span>
+            <h4>Guernica</h4>
+            <p>Pablo Picasso · 1937 · Source: <a href="https://commons.wikimedia.org/wiki/File:Guernica.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/The_Great_Wave_off_Kanagawa.jpg/1024px-The_Great_Wave_off_Kanagawa.jpg" alt="The Great Wave off Kanagawa" loading="lazy" width="1024" height="683" />
+          <div class="art-meta">
+            <span>Ukiyo-e</span>
+            <h4>The Great Wave</h4>
+            <p>Katsushika Hokusai · c. 1831 · Source: <a href="https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg" alt="The Persistence of Memory" loading="lazy" width="1200" height="800" />
+          <div class="art-meta">
+            <span>Surrealism</span>
+            <h4>The Persistence of Memory</h4>
+            <p>Salvador Dali · 1931 · Source: <a href="https://commons.wikimedia.org/wiki/File:The_Persistence_of_Memory.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
 
-    <div class="art-section" style="animation-delay: 0.9s;">
-      <h2>Renaissance Perfection</h2>
-      <div class="art-container">
-        <img src="https://artincontext.org/wp-content/uploads/2021/06/High-Renaissance.jpg" alt="The Creation of Adam">
-        <div class="caption">Michelangelo – The Creation of Adam (c. 1512)</div>
+        <!-- Additional homepage photos with metadata -->
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Taj_Mahal_in_March_2004.jpg" alt="Taj Mahal (Wonders of the World)" loading="lazy" width="1024" height="682" />
+          <div class="art-meta">
+            <span>Wonder of the World</span>
+            <h4>Taj Mahal</h4>
+            <p>Agra, India · c. 1653 · Marble mausoleum · Source: <a href="https://commons.wikimedia.org/wiki/File:Taj_Mahal_in_March_2004.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Machu_Picchu%2C_Peru.jpg/1024px-Machu_Picchu%2C_Peru.jpg" alt="Machu Picchu" loading="lazy" width="1024" height="683" />
+          <div class="art-meta">
+            <span>Inca</span>
+            <h4>Machu Picchu</h4>
+            <p>Cusco Region, Peru · 15th century · Source: <a href="https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Great_Wall_of_China_July_2006.JPG/1024px-Great_Wall_of_China_July_2006.JPG" alt="Great Wall of China" loading="lazy" width="1024" height="683" />
+          <div class="art-meta">
+            <span>Historic Architecture</span>
+            <h4>Great Wall</h4>
+            <p>China · Various dynasties · Source: <a href="https://commons.wikimedia.org/wiki/File:Great_Wall_of_China_July_2006.JPG" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Chichen_Itza_El_Castillo_2013.jpg/1024px-Chichen_Itza_El_Castillo_2013.jpg" alt="Chichen Itza" loading="lazy" width="1024" height="768" />
+          <div class="art-meta">
+            <span>Mesoamerican</span>
+            <h4>Chichen Itza</h4>
+            <p>Yucatán, Mexico · c. 600–1200 CE · Source: <a href="https://commons.wikimedia.org/wiki/File:Chichen_Itza_El_Castillo_2013.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/1024px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg" alt="Colosseum" loading="lazy" width="1024" height="683" />
+          <div class="art-meta">
+            <span>Ancient Rome</span>
+            <h4>Colosseum</h4>
+            <p>Rome, Italy · AD 72–80 · Source: <a href="https://commons.wikimedia.org/wiki/File:Colosseum_in_Rome,_Italy_-_April_2007.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
       </div>
+    </section>
 
-      <div class="art-container">
-        <img src="https://d7hftxdivxxvm.cloudfront.net/?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2FmhjdefWIMXH9mtWjqJYxLA%252Fsandro-botticelli-the-birth-of-venus-ca-1486.jpg&width=1200" alt="The Birth of Venus">
-        <div class="caption">Sandro Botticelli – The Birth of Venus (c. 1486)</div>
+    <section class="cta">
+      <div>
+        <h4>Submit your work to the next drop</h4>
+        <p>We highlight emerging voices every season. Share your portfolio and join the collection.</p>
       </div>
-
-      <div class="art-container">
-        <img src="https://antigonejournal.com/wp-content/uploads/2023/02/SoARf.png" alt="The School of Athens">
-        <div class="caption">Raphael – The School of Athens (1509–1511)</div>
-      </div>
-    </div>
-
-    <div class="art-section" style="animation-delay: 1s;">
-      <h2>Impressionist Light & Color – Claude Monet</h2>
-      <div class="art-container">
-        <img src="https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F0HTaSpX63Gv4o2PJV-nf6w%252FClaude%2BMonet%252C%2BMeules%2Ba%2BGiverny.jpg&width=910" alt="Haystacks">
-        <div class="caption">Claude Monet – Haystacks (1890–91)</div>
-      </div>
-
-      <div class="art-container">
-        <img src="https://impressionistarts.com/assets/10-paintings-claude-monet-water-lilies-nympheas.jpg" alt="Water Lilies">
-        <div class="caption">Claude Monet – Water Lilies (series detail)</div>
-      </div>
-
-      <div class="art-container">
-        <img src="https://drawpaintacademy.com/wp-content/uploads/2017/11/4.-Claude-Monet-Water-Lilies-Evening-Effect-1897-1899.jpg" alt="Water Lilies Evening">
-        <div class="caption">Claude Monet – Water Lilies: Evening Effect (1897–1899)</div>
-      </div>
-    </div>
-
-    <div class="art-section" style="animation-delay: 1.1s;">
-      <h2>Modern Abstract Expression</h2>
-      <div class="art-container">
-        <img src="https://m.media-amazon.com/images/I/8148UrepONL._AC_UF894,1000_QL80_.jpg" alt="Abstract swirl">
-        <div class="caption">Contemporary Abstract – Vibrant Energy Flow</div>
-      </div>
-
-      <div class="art-container">
-        <img src="https://m.media-amazon.com/images/I/61ihhbaXi8L._AC_UF894,1000_QL80_.jpg" alt="Abstract waves">
-        <div class="caption">Modern Abstract – Fiery Waves</div>
-      </div>
-    </div>
+      <a class="btn" href="upload.html">Upload Your Art</a>
+    </section>
   </main>
 
   <footer>
     © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
   </footer>
-
-  <a href="upload.html" class="fab-upload" title="Upload your artwork">
-    <img src="https://thumbs.dreamstime.com/b/cloud-upload-icon-symbol-represents-data-transfer-simple-graphic-upward-arrow-indicating-408059180.jpg" alt="Upload icon">
-  </a>
-
 </body>
 </html>
