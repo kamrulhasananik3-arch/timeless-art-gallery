@@ -2,6 +2,18 @@
 
 Simple static gallery demo showcasing artworks and upload UI.
 
+## Technologies Used (Coding Languages)
+
+This project is built with **3 technologies**:
+
+| # | Technology     | Purpose                                      |
+|---|----------------|----------------------------------------------|
+| 1 | **HTML**       | Page structure and content markup            |
+| 2 | **CSS**        | Styling, layout, animations, and responsive design |
+| 3 | **JavaScript** | Interactive features (image modals, upload previews, filters) |
+
+No build tools or frameworks are required — open any `.html` file directly in a browser.
+
 Preview locally:
 
 - Open `index.html` in your browser (double-click or use Live Server).
