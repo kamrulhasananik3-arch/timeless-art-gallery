@@ -326,11 +326,18 @@
     const title = document.getElementById('editTitle').value;
     const artistName = document.getElementById('editArtist').value;
     const description = document.getElementById('editDesc').value;
-
-    // Find existing artwork to keep imageUrl and style
     const existing = artworks.find(a => a.id === id) || {};
 
     try {
+      // Step 1: Delete old document
+      await fetch(DELETE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      // Step 2: Wait for delete to complete
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Step 3: Recreate with same id and updated fields
       await fetch(CREATE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -342,11 +349,11 @@
       });
       showToast('✅ Artwork updated successfully!');
       closeModal();
-      setTimeout(loadArtworks, 1000);
+      setTimeout(loadArtworks, 2000);
     } catch (err) {
       showToast('✅ Update submitted!');
       closeModal();
-      setTimeout(loadArtworks, 2000);
+      setTimeout(loadArtworks, 3000);
     }
   }
 
