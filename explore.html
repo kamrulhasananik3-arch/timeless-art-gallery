@@ -5,383 +5,373 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore — Timeless Art Gallery</title>
   <style>
-    html { font-size: clamp(16px, 1.2vw + 14px, 18px); }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    @keyframes fadeIn { 
-      from { opacity: 0; } 
-      to { opacity: 1; } 
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+    :root {
+      --ink: #1c1c22;
+      --ink-soft: #3c3c46;
+      --accent: #0f4c5c;
+      --accent-bright: #f4b942;
+      --surface: #ffffff;
+      --surface-alt: #f7f4ef;
+      --line: #e4dfd6;
+      --shadow: 0 24px 60px rgba(18, 24, 40, 0.12);
+      --shadow-soft: 0 10px 30px rgba(18, 24, 40, 0.08);
     }
-    
-    @keyframes slideUp { 
-      from { opacity: 0; transform: translateY(30px); } 
-      to { opacity: 1; transform: translateY(0); } 
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: clamp(16px, 1.2vw + 14px, 19px); }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(244, 185, 66, 0.18), transparent 40%),
+        radial-gradient(circle at 88% 10%, rgba(15, 76, 92, 0.16), transparent 42%),
+        linear-gradient(135deg, #fbf9f6 0%, #f2efe9 100%);
+      min-height: 100vh;
+      line-height: 1.6;
     }
-    
-    @keyframes scaleIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background: linear-gradient(135deg, #f5f7fa 0%, #e8eef8 100%); 
-      color: #2c3e50; 
-      line-height: 1.8;
-      animation: fadeIn 0.7s ease;
-    }
-    
-    header { 
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
-      color: white; 
-      padding: 80px 20px 60px; 
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+
+    header {
+      background: linear-gradient(135deg, #0e121b 0%, #1d2736 100%);
+      color: #f6f3ef;
+      padding: clamp(28px, 5vw, 80px) 24px clamp(18px, 4vw, 64px);
       position: relative;
       overflow: hidden;
     }
-    
-    header::before {
+    header::after {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      right: -140px;
+      top: -120px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(244, 185, 66, 0.24), transparent 65%);
       border-radius: 50%;
     }
-    
-    header > * { position: relative; z-index: 1; }
-    
-    .logo-container { 
-      max-width: 320px; 
-      margin: 0 auto 30px; 
-      animation: slideUp 0.8s ease 0.2s both;
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+      z-index: 1;
     }
-    
-    .logo { 
-      width: 100%; 
-      height: auto; 
-      display: block; 
-      filter: brightness(1.2) drop-shadow(0 4px 8px rgba(255,255,255,0.3)); 
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .brand img {
+      width: clamp(160px, 24vw, 240px);
+      height: auto;
+      filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
     }
-    
-    .logo:hover { transform: scale(1.08) rotate(2deg); }
-    
-    header h1 { 
-      margin: 0; 
-      font-size: clamp(2rem, 4vw, 3.2rem); 
-      font-weight: 700; 
-      letter-spacing: 2px;
-      animation: slideUp 0.8s ease 0.3s both;
-      background: linear-gradient(135deg, #fff 0%, #e0e8ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: 1.5px;
     }
-    
-    nav { 
-      margin-top: 30px;
-      animation: slideUp 0.8s ease 0.4s both;
+    nav {
+      margin-top: 20px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 12px;
     }
-    
-    nav a { 
-      color: #e0e8ff;
-      text-decoration: none; 
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      position: relative;
+    nav a {
+      color: #f6f3ef;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.2s ease, border 0.2s ease;
+      font-weight: 500;
     }
-    
-    nav a::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      border-radius: 25px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-      z-index: -1;
+    nav a:hover {
+      background: rgba(244, 185, 66, 0.2);
+      border-color: rgba(244, 185, 66, 0.4);
     }
-    
-    nav a:hover::before { transform: scaleX(1); }
-    nav a:hover { color: white; }
-    
-    .hero { 
-      background: linear-gradient(135deg, rgba(232, 238, 248, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
-      padding: 60px 20px; 
-      text-align: center;
-      animation: fadeIn 1s ease 0.5s both;
+
+    .hero {
+      max-width: 1200px;
+      margin: clamp(32px, 6vw, 80px) auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: clamp(28px, 4vw, 64px);
+      align-items: center;
     }
-    
     .hero h2 {
-      font-size: clamp(1.6rem, 3vw, 2.6rem);
-      color: #1a1a2e;
-      margin-bottom: 20px;
-      animation: slideUp 0.8s ease 0.6s both;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
     }
-    
     .hero p {
-      font-size: 1.1rem;
-      color: #666;
-      animation: slideUp 0.8s ease 0.7s both;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      margin-bottom: 20px;
     }
-    
-    .content { 
-      max-width: 1200px; 
-      margin: 60px auto; 
-      padding: 0 20px; 
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
     }
-    
+    .hero-card span {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+    }
+    .hero-card p { color: var(--ink-soft); }
+
+    .filter-row {
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+    .chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: clamp(28px, 5vw, 60px) auto;
+      padding: 0 24px;
+    }
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-bottom: 60px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
     }
-    
     .category-card {
-      background: white;
-      border-radius: 15px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-      transition: all 0.4s ease;
-      animation: scaleIn 0.6s ease backwards;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
-    
-    .category-card:nth-child(1) { animation-delay: 0.6s; }
-    .category-card:nth-child(2) { animation-delay: 0.7s; }
-    .category-card:nth-child(3) { animation-delay: 0.8s; }
-    .category-card:nth-child(4) { animation-delay: 0.9s; }
-    .category-card:nth-child(5) { animation-delay: 1s; }
-    .category-card:nth-child(6) { animation-delay: 1.1s; }
-    
     .category-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
     }
-    
-    .category-header {
-      height: clamp(120px, 18vw, 220px);
-      background: linear-gradient(135deg, #007bff, #0056b3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      transition: all 0.4s ease;
+    .category-header img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
     }
-    
-    .category-card:hover .category-header {
-      background: linear-gradient(135deg, #0056b3, #003d82);
-    }
-    
     .category-body {
-      padding: 30px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
     }
-    
     .category-body h3 {
-      color: #1a1a2e;
-      font-size: clamp(1.1rem, 1.6vw, 1.5rem);
-      margin-bottom: 12px;
+      font-size: 1.1rem;
+      color: var(--ink);
     }
-    
     .category-body p {
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.6;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
     }
-    
     .category-stats {
-      display: flex;
-      gap: 20px;
-      padding: 15px 0;
-      border-top: 2px solid #eee;
-      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
     }
-    
     .stat {
-      flex: 1;
+      background: var(--surface-alt);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 10px;
       text-align: center;
     }
-    
-    .stat-number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #007bff;
-    }
-    
-    .stat-label {
-      font-size: 0.85rem;
-      color: #999;
-      margin-top: 5px;
-    }
-    
-    footer { 
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      color: #aaa; 
-      text-align: center; 
-      padding: 35px 20px;
-      font-size: 0.95rem; 
+    .stat-number { font-size: 1rem; font-weight: 600; }
+    .stat-label { font-size: 0.75rem; color: var(--ink-soft); }
+
+    footer {
       margin-top: 80px;
-      animation: slideUp 0.8s ease backwards;
+      padding: 32px 20px;
+      text-align: center;
+      color: #d8d3c8;
+      background: #121823;
     }
-    
-    @media (max-width: 768px) {
-      header h1 { font-size: 2rem; }
-      .hero h2 { font-size: 1.8rem; }
-      .category-grid {
-        grid-template-columns: 1fr;
-      }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo-container">
-      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" 
-           alt="Timeless Art Gallery Logo" class="logo">
+    <div class="brand">
+      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" />
+      <h1>Timeless Art Gallery</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="explore.html">Explore</a>
+        <a href="artists.html">Artists</a>
+        <a href="information.html">Information</a>
+        <a href="upload.html">Upload</a>
+      </nav>
     </div>
-    <h1>Timeless Art Gallery</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="explore.html">Explore</a>
-      <a href="artists.html">Artists</a>
-      <a href="information.html">Information</a>
-      <a href="upload.html">Upload</a>
-    </nav>
   </header>
 
   <section class="hero">
-    <h2>Explore Art Styles & Movements</h2>
-    <p>Discover the rich history and diversity of artistic expression across different genres and time periods</p>
+    <div>
+      <h2>Explore art movements and global traditions.</h2>
+      <p>Dive into movements, materials, and cultural histories with curated summaries and featured collections.</p>
+    </div>
+    <div class="hero-card">
+      <span>Explore</span>
+      <h3>Start with a movement</h3>
+      <p>Each category includes an overview, highlighted artists, and a short editorial timeline.</p>
+    </div>
   </section>
 
+  <div class="filter-row">
+    <span class="chip active">All</span>
+    <span class="chip">Modern</span>
+    <span class="chip">Classical</span>
+    <span class="chip">Digital</span>
+    <span class="chip">Regional</span>
+    <span class="chip">Photography</span>
+  </div>
+
   <main class="content">
-    <div class="category-grid">
-      <div class="category-card">
-        <div class="category-header">🎨</div>
-        <div class="category-body">
-          <h3>Abstract Expressionism</h3>
-          <p>Bold, emotional artworks that emphasize spontaneity and personal expression through color and form.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">1,240</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">340+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-header">🖼️</div>
-        <div class="category-body">
-          <h3>Contemporary Art</h3>
-          <p>Modern creations from today's artists, reflecting current culture, technology, and social perspectives.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">2,150</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">520+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-header">🏛️</div>
-        <div class="category-body">
-          <h3>Classical & Renaissance</h3>
-          <p>Timeless masterpieces from the Renaissance and Classical periods, showcasing technical mastery and beauty.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">890</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">180+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-header">🌅</div>
-        <div class="category-body">
-          <h3>Impressionism & Realism</h3>
-          <p>Capture of light, color, and everyday moments with stunning visual accuracy and emotional depth.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">1,560</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">290+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-header">✨</div>
-        <div class="category-body">
-          <h3>Digital & New Media</h3>
-          <p>Innovative works created with cutting-edge technology, pushing the boundaries of artistic expression.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">3,420</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">780+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-header">🌍</div>
-        <div class="category-body">
-          <h3>World Art & Culture</h3>
-          <p>Diverse artistic traditions from around the globe, celebrating unique cultural perspectives and heritage.</p>
-          <div class="category-stats">
-            <div class="stat">
-              <div class="stat-number">2,890</div>
-              <div class="stat-label">Artworks</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">650+</div>
-              <div class="stat-label">Artists</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="category-grid" id="categoryGrid"></div>
   </main>
 
   <footer>
     © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
   </footer>
+
+  <script>
+    const categories = [
+      { slug: 'abstract-expressionism', query: 'abstract painting brushstrokes', name: 'Abstract Expressionism', description: 'Bold emotional painting focused on gesture, energy, and personal expression.', artworks: '1,240', artists: '340+' },
+      { slug: 'contemporary-art', query: 'contemporary art gallery installation', name: 'Contemporary Art', description: 'Current-era works reflecting modern culture, identity, and society.', artworks: '2,150', artists: '520+' },
+      { slug: 'renaissance-art', query: 'renaissance painting classical portrait', name: 'Renaissance Art', description: 'Masterpieces of balance, perspective, and humanist beauty from Europe.', artworks: '980', artists: '210+' },
+      { slug: 'impressionism', query: 'impressionist painting light landscape', name: 'Impressionism', description: 'Light-driven scenes with visible brushwork and atmospheric color.', artworks: '1,460', artists: '280+' },
+      { slug: 'realism', query: 'realist painting people daily life', name: 'Realism', description: 'Truthful depictions of daily life and social realities.', artworks: '1,020', artists: '230+' },
+      { slug: 'surrealism', query: 'surreal painting dream scene', name: 'Surrealism', description: 'Dreamlike imagery blending imagination, symbolism, and the subconscious.', artworks: '1,180', artists: '260+' },
+      { slug: 'cubism', query: 'cubist painting geometric portrait', name: 'Cubism', description: 'Fragmented forms and multiple viewpoints in one composition.', artworks: '760', artists: '160+' },
+      { slug: 'baroque', query: 'baroque painting dramatic light', name: 'Baroque', description: 'Dramatic lighting, movement, and grand storytelling in art.', artworks: '890', artists: '190+' },
+      { slug: 'romanticism', query: 'romanticism art landscape dramatic sky', name: 'Romanticism', description: 'Emotion-driven scenes of nature, heroism, and the sublime.', artworks: '840', artists: '170+' },
+      { slug: 'neoclassicism', query: 'neoclassical painting historical scene', name: 'Neoclassicism', description: 'Classical harmony and order inspired by Greek and Roman ideals.', artworks: '680', artists: '140+' },
+      { slug: 'pop-art', query: 'pop art colorful graphic', name: 'Pop Art', description: 'Bold graphics and popular culture transformed into iconic art.', artworks: '930', artists: '190+' },
+      { slug: 'minimalism', query: 'minimalist art geometric clean', name: 'Minimalism', description: 'Essential shapes and color reduced to core visual language.', artworks: '710', artists: '150+' },
+      { slug: 'symbolism', query: 'symbolist painting mystical scene', name: 'Symbolism', description: 'Poetic imagery and hidden meaning beyond literal representation.', artworks: '620', artists: '130+' },
+      { slug: 'fauvism', query: 'fauvism painting vibrant color', name: 'Fauvism', description: 'Explosive color and expressive brushwork over realism.', artworks: '440', artists: '90+' },
+      { slug: 'dada', query: 'dada collage avant garde art', name: 'Dada', description: 'Anti-traditional art challenging meaning, logic, and convention.', artworks: '380', artists: '85+' },
+      { slug: 'art-nouveau', query: 'art nouveau decorative floral design', name: 'Art Nouveau', description: 'Decorative curves, floral motifs, and elegant organic lines.', artworks: '560', artists: '115+' },
+      { slug: 'art-deco', query: 'art deco geometric architecture style', name: 'Art Deco', description: 'Geometric luxury style blending craft, glamour, and modernity.', artworks: '520', artists: '110+' },
+      { slug: 'ukiyo-e', query: 'ukiyo-e japanese woodblock print', name: 'Ukiyo-e', description: 'Japanese woodblock prints of landscapes, theater, and daily life.', artworks: '760', artists: '145+' },
+      { slug: 'byzantine-art', query: 'byzantine mosaic icon art', name: 'Byzantine Art', description: 'Sacred icons, mosaics, and spiritual visual traditions.', artworks: '430', artists: '95+' },
+      { slug: 'islamic-art', query: 'islamic geometric art calligraphy pattern', name: 'Islamic Art', description: 'Geometric design, calligraphy, and ornamental abstraction.', artworks: '980', artists: '220+' },
+      { slug: 'bengal-art-heritage', query: 'bengal folk art patachitra terracotta', name: 'Bengal Art and Heritage', description: 'Historic and folk traditions from Bengal, including patachitra, terracotta, and temple art.', artworks: '860', artists: '240+' },
+      { slug: 'mughal-empire-art', query: 'mughal miniature painting architecture', name: 'Mughal Empire Art', description: 'Imperial miniature painting, calligraphy, and architecture from the Mughal era.', artworks: '740', artists: '170+' },
+      { slug: 'african-art', query: 'african tribal art sculpture mask', name: 'African Art', description: 'Diverse regional forms, symbolism, masks, and sculpture traditions.', artworks: '1,120', artists: '300+' },
+      { slug: 'street-art', query: 'street art mural graffiti wall', name: 'Street Art', description: 'Urban murals, graffiti, and public creative expression.', artworks: '1,300', artists: '410+' },
+      { slug: 'digital-art', query: 'digital art neon concept illustration', name: 'Digital Art', description: 'Art created with software, tablets, and modern creative tools.', artworks: '3,420', artists: '780+' },
+      { slug: 'photography', query: 'art photography gallery portrait', name: 'Photography', description: 'Visual storytelling through composition, light, and timing.', artworks: '2,210', artists: '620+' },
+      { slug: 'sculpture', query: 'sculpture marble bronze art', name: 'Sculpture', description: 'Three-dimensional art in stone, bronze, wood, and mixed media.', artworks: '1,570', artists: '360+' },
+      { slug: 'landscape-painting', query: 'landscape painting mountains river', name: 'Landscape Painting', description: 'Natural scenes that capture place, weather, and mood.', artworks: '1,840', artists: '430+' },
+      { slug: 'portraiture', query: 'portrait painting face classical', name: 'Portraiture', description: 'Art focused on identity, personality, and human presence.', artworks: '1,690', artists: '390+' },
+      { slug: 'still-life', query: 'still life painting fruit vase', name: 'Still Life', description: 'Composed objects studying form, light, and symbolic meaning.', artworks: '1,210', artists: '280+' },
+      { slug: 'conceptual-art', query: 'conceptual art installation idea', name: 'Conceptual Art', description: 'Idea-first art where concept matters more than physical object.', artworks: '870', artists: '210+' },
+      { slug: 'modern-abstract', query: 'modern abstract colorful painting', name: 'Modern Abstract', description: 'Contemporary abstraction with dynamic color and composition.', artworks: '1,540', artists: '360+' }
+    ];
+
+    const grid = document.getElementById('categoryGrid');
+
+    // Build an Unsplash Source URL for a category using keywords (no API key required).
+    // Use space-separated tags to avoid repeated identical images and include a seed.
+    const buildUnsplashUrl = (tags, seed) => {
+      const q = (tags || '').replace(/,/g, ' ').trim();
+      return `https://source.unsplash.com/800x500/?${encodeURIComponent(q)}&sig=${seed}`;
+    };
+
+    categories.forEach((category, index) => {
+      const tags = category.query
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim()
+        .split(/\s+/)
+        .slice(0, 3)
+        .join(',');
+      const fallbackUrl = `https://picsum.photos/800/500?random=${index + 101}`;
+      // Use a generic Picsum image as the final fallback to avoid the same Mona Lisa thumbnail everywhere
+      const finalFallback = `https://picsum.photos/800/500?random=${index + 9999}`;
+      const card = document.createElement('a');
+      card.className = 'category-card';
+      card.href = `categories/${category.slug}.html`;
+
+      card.innerHTML = `
+        <div class="category-header">
+          <img src="${fallbackUrl}" alt="${category.name} category image" loading="lazy">
+        </div>
+        <div class="category-body">
+          <h3>${category.name}</h3>
+          <p>${category.description}</p>
+          <div class="category-stats">
+            <div class="stat">
+              <div class="stat-number">${category.artworks}</div>
+              <div class="stat-label">Artworks</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">${category.artists}</div>
+              <div class="stat-label">Artists</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      grid.appendChild(card);
+
+      const img = card.querySelector('img');
+      // two-step fallback: try finalFallback then Picsum (if Unsplash fails)
+      img.addEventListener('error', () => {
+        if (!img.dataset.triedFinal) {
+          img.dataset.triedFinal = '1';
+          img.src = finalFallback;
+          return;
+        }
+        if (!img.dataset.triedPicsum) {
+          img.dataset.triedPicsum = '1';
+          img.src = `https://picsum.photos/800/500?random=${index + 201}`;
+          return;
+        }
+      });
+
+      // Prefer Unsplash for category visuals; fallbacks will trigger if needed
+      const unsplashUrl = buildUnsplashUrl(tags, index + 1 + Math.floor(Math.random() * 1000));
+      img.src = unsplashUrl;
+    });
+  </script>
 
 </body>
 </html>

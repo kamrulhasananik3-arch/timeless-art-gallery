@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeless Art Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Timeless Art Gallery — curated exhibitions, artist profiles, and an open submissions gallery.">
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="assets/logo.svg" alt="Timeless Art Gallery logo" width="160" height="160" />
+      <h1>Timeless Art Gallery</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="explore.html">Explore</a>
+        <a href="artists.html">Artists</a>
+        <a href="information.html">Information</a>
+        <a href="upload.html">Upload</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h2>Curated art, timeless stories, and modern voices.</h2>
+      <p>Explore a living gallery that pairs historic masterworks with emerging contemporary perspectives.</p>
+      <div class="hero-actions">
+        <a class="btn" href="gallery.html">Start Browsing</a>
+        <a class="btn secondary" href="artists.html">Meet the Artists</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <span>Current Focus</span>
+      <h3>Light, Surface, Memory</h3>
+      <p>A rotating exhibition on how artists across centuries render atmosphere and emotion.</p>
+      <div class="stats">
+        <div class="stat">
+          <strong>28</strong>
+          <span>Featured works</span>
+        </div>
+        <div class="stat">
+          <strong>9</strong>
+          <span>Studios</span>
+        </div>
+        <div class="stat">
+          <strong>6</strong>
+          <span>Essays</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="content">
+    <section class="feature-grid">
+      <article class="feature-card">
+        <h4>Curated Exhibitions</h4>
+        <p>Seasonal collections curated to highlight craft, context, and bold experimentation.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Artist Profiles</h4>
+        <p>Learn the stories and studios behind the work through short interviews and notes.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Open Submissions</h4>
+        <p>Upload your work and join the next rotation alongside global creators.</p>
+      </article>
+      <article class="feature-card">
+        <h4>Learning Notes</h4>
+        <p>Contextual essays and timelines for deeper understanding of each movement.</p>
+      </article>
+    </section>
+
+    <section class="collection">
+      <div class="collection-header">
+        <h3>Highlights from the collection</h3>
+        <p>Six pieces chosen to represent the breadth of mediums and time periods featured this season.</p>
+      </div>
+      <div class="art-grid">
+        <article class="art-card">
+          <img src="assets/thumbs/img01.jpg" alt="Mona Lisa" loading="lazy" width="800" height="1000"
+            data-title="Mona Lisa"
+            data-artist="Leonardo da Vinci"
+            data-date="c. 1503–1506"
+            data-place="Florence, Italy"
+            data-medium="Oil on poplar panel"
+            data-dimensions="77 cm × 53 cm"
+            data-license="Public domain (digitized)"
+            data-collection="Louvre Museum, Paris"
+            data-photographer="Digitized by: Musée du Louvre / Wikimedia Commons"
+            data-description="Portrait of Lisa Gherardini; iconic High Renaissance portrait; noted for sfumato technique."
+            data-license_url="https://commons.wikimedia.org/wiki/File:Mona_Lisa.jpg" />
+          <div class="art-meta">
+            <span>Renaissance</span>
+            <h4>Mona Lisa</h4>
+            <p>Leonardo da Vinci · c. 1503–1506 · Source: <a href="https://commons.wikimedia.org/wiki/File:Mona_Lisa.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/thumbs/img02.jpg" alt="The Starry Night" loading="lazy" width="1280" height="960"
+            data-title="The Starry Night"
+            data-artist="Vincent van Gogh"
+            data-date="1889"
+            data-place="Saint-Rémy, France"
+            data-medium="Oil on canvas"
+            data-dimensions="73.7 cm × 92.1 cm"
+            data-license="Public domain (digitized)"
+            data-collection="Museum of Modern Art (MoMA), New York"
+            data-photographer="Digitized by: Google Art Project / MoMA"
+            data-description="A nocturnal study of swirling skies over a village; one of van Gogh's most famous works."
+            data-license_url="https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" />
+          <div class="art-meta">
+            <span>Post-Impressionism</span>
+            <h4>The Starry Night</h4>
+            <p>Vincent van Gogh · 1889 · Source: <a href="https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/thumbs/img03.jpg" alt="The Water Lily Pond" loading="lazy" width="1024" height="683"
+            data-title="The Water Lily Pond"
+            data-artist="Claude Monet"
+            data-date="1899"
+            data-place="Giverny, France"
+            data-medium="Oil on canvas"
+            data-dimensions="approx. 100 cm × 180 cm"
+            data-license="Public domain (digitized)"
+            data-collection="Musée de l'Orangerie / Various collections"
+            data-photographer="Digitized by: Wikimedia Commons contributors"
+            data-description="Part of Monet's Water Lilies series exploring light and reflection in the garden pond."
+            data-license_url="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_The_Water_Lily_Pond.jpg" />
+          <div class="art-meta">
+            <span>Impressionism</span>
+            <h4>The Water Lily Pond</h4>
+            <p>Claude Monet · 1899 · Source: <a href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_The_Water_Lily_Pond.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/thumbs/img04.jpg" alt="Guernica" loading="lazy" width="1200" height="823"
+            data-title="Guernica"
+            data-artist="Pablo Picasso"
+            data-date="1937"
+            data-place="Spain"
+            data-medium="Oil on canvas"
+            data-dimensions="349 cm × 776 cm"
+            data-license="See source page"
+            data-collection="Museo Reina Sofía, Madrid"
+            data-photographer="Digitized by: Museo Reina Sofía / Wikimedia Commons"
+            data-description="A large-scale monochrome mural depicting the tragedies of war and suffering."
+            data-license_url="https://commons.wikimedia.org/wiki/File:Guernica.jpg" />
+          <div class="art-meta">
+            <span>Modern</span>
+            <h4>Guernica</h4>
+            <p>Pablo Picasso · 1937 · Source: <a href="https://commons.wikimedia.org/wiki/File:Guernica.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg" alt="The Great Wave off Kanagawa" loading="lazy" width="1024" height="683"
+            data-title="The Great Wave"
+            data-artist="Katsushika Hokusai"
+            data-date="c. 1831"
+            data-place="Japan"
+            data-medium="Polychrome woodblock print"
+            data-dimensions="approx. 25.7 cm × 37.9 cm"
+            data-license="Public domain"
+            data-collection="Various collections / Wikimedia Commons"
+            data-photographer="Digitized by: Wikimedia Commons contributors"
+            data-description="Iconic ukiyo-e print depicting a massive wave threatening boats off Kanagawa."
+            data-license_url="https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg" />
+          <div class="art-meta">
+            <span>Ukiyo-e</span>
+            <h4>The Great Wave</h4>
+            <p>Katsushika Hokusai · c. 1831 · Source: <a href="https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg" alt="The Persistence of Memory" loading="lazy" width="1200" height="800"
+            data-title="The Persistence of Memory"
+            data-artist="Salvador Dalí"
+            data-date="1931"
+            data-place="Spain"
+            data-medium="Oil on canvas"
+            data-dimensions="24 cm × 33 cm"
+            data-license="See source page"
+            data-collection="Museum of Modern Art / Dalí Foundation (varies)"
+            data-photographer="Digitized by: Wikimedia Commons contributors"
+            data-description="Surrealist work famous for its melting clocks reflecting the fluidity of time."
+            data-license_url="https://commons.wikimedia.org/wiki/File:The_Persistence_of_Memory.jpg" />
+          <div class="art-meta">
+            <span>Surrealism</span>
+            <h4>The Persistence of Memory</h4>
+            <p>Salvador Dali · 1931 · Source: <a href="https://commons.wikimedia.org/wiki/File:The_Persistence_of_Memory.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+
+        <!-- Additional homepage photos with metadata -->
+        <article class="art-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Taj_Mahal_in_March_2004.jpg" alt="Taj Mahal (Wonders of the World)" loading="lazy" width="1024" height="682"
+            data-title="Taj Mahal"
+            data-artist="Ustad Ahmad Lahauri (attributed)"
+            data-date="c. 1653"
+            data-place="Agra, India"
+            data-medium="Marble mausoleum (architecture)"
+            data-dimensions="Height: approx. 73 m"
+            data-license="See source page"
+            data-photographer="Wikimedia Commons contributor"
+            data-collection="UNESCO World Heritage Site"
+            data-description="Iconic Mughal-era mausoleum built by Shah Jahan in memory of Mumtaz Mahal."
+            data-license_url="https://commons.wikimedia.org/wiki/File:Taj_Mahal_in_March_2004.jpg" />
+          <div class="art-meta">
+            <span>Wonder of the World</span>
+            <h4>Taj Mahal</h4>
+            <p>Agra, India · c. 1653 · Marble mausoleum · Source: <a href="https://commons.wikimedia.org/wiki/File:Taj_Mahal_in_March_2004.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/placeholder.svg" alt="Machu Picchu" loading="lazy" width="1024" height="683"
+            data-title="Machu Picchu"
+            data-artist="Inca (architectural site)"
+            data-date="15th century"
+            data-place="Cusco Region, Peru"
+            data-medium="Inca stone architecture"
+            data-dimensions="Site area variable"
+            data-license="See source page" />
+          <div class="art-meta">
+            <span>Inca</span>
+            <h4>Machu Picchu</h4>
+            <p>Cusco Region, Peru · 15th century · Source: <a href="https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/placeholder.svg" alt="Great Wall of China" loading="lazy" width="1024" height="683"
+            data-title="Great Wall of China"
+            data-artist="Various builders"
+            data-date="Various dynasties"
+            data-place="China"
+            data-medium="Fortification architecture"
+            data-dimensions="Length: thousands of km (varies by section)"
+            data-license="See source page" />
+          <div class="art-meta">
+            <span>Historic Architecture</span>
+            <h4>Great Wall</h4>
+            <p>China · Various dynasties · Source: <a href="https://commons.wikimedia.org/wiki/File:Great_Wall_of_China_July_2006.JPG" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/placeholder.svg" alt="Chichen Itza" loading="lazy" width="1024" height="768" data-title="Chichen Itza" data-artist="Maya (architectural site)" data-date="c. 600–1200 CE" data-place="Yucatán, Mexico" data-source="https://commons.wikimedia.org/wiki/File:Chichen_Itza_El_Castillo_2013.jpg" />
+          <div class="art-meta">
+            <span>Mesoamerican</span>
+            <h4>Chichen Itza</h4>
+            <p>Yucatán, Mexico · c. 600–1200 CE · Source: <a href="https://commons.wikimedia.org/wiki/File:Chichen_Itza_El_Castillo_2013.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+        <article class="art-card">
+          <img src="assets/placeholder.svg" alt="Colosseum" loading="lazy" width="1024" height="683" data-title="Colosseum" data-artist="Ancient Roman builders" data-date="AD 72–80" data-place="Rome, Italy" data-source="https://commons.wikimedia.org/wiki/File:Colosseum_in_Rome,_Italy_-_April_2007.jpg" />
+          <div class="art-meta">
+            <span>Ancient Rome</span>
+            <h4>Colosseum</h4>
+            <p>Rome, Italy · AD 72–80 · Source: <a href="https://commons.wikimedia.org/wiki/File:Colosseum_in_Rome,_Italy_-_April_2007.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a></p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Image detail modal -->
+      <div id="imageModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+          <img id="modalImage" src="" alt="" />
+          <div class="modal-meta">
+            <h4 id="modalTitle"></h4>
+            <p id="modalArtist"></p>
+            <p id="modalDate"></p>
+            <p id="modalPlace"></p>
+            <p id="modalSource"></p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function(){
+          const modal = document.getElementById('imageModal');
+          const modalImage = document.getElementById('modalImage');
+          const modalTitle = document.getElementById('modalTitle');
+          const modalArtist = document.getElementById('modalArtist');
+          const modalDate = document.getElementById('modalDate');
+          const modalPlace = document.getElementById('modalPlace');
+          const modalSource = document.getElementById('modalSource');
+          const modalClose = document.getElementById('modalClose');
+          const modalBackdrop = document.getElementById('modalBackdrop');
+          const modalContent = document.querySelector('.modal-content');
+
+          function openModal(img){
+            // Prefer a Wikimedia thumbnail variant for the modal to improve reliability and size.
+            let modalSrc = img.src || '';
+            try {
+              const m = modalSrc.match(/(https:\/\/upload\.wikimedia\.org\/wikipedia\/)([^\/]+)\/(.+)$/);
+              if (m) {
+                const prefix = m[1];
+                const lang = m[2];
+                const rest = m[3];
+                const parts = rest.split('/');
+                const basename = parts[parts.length-1];
+                const size = 1024;
+                modalSrc = prefix + lang + '/thumb/' + parts.slice(0).join('/') + '/' + size + 'px-' + basename;
+              }
+            } catch (e) {}
+            modalImage.src = modalSrc;
+            modalImage.alt = img.alt || '';
+            modalTitle.textContent = img.dataset.title || img.alt || '';
+            modalArtist.textContent = img.dataset.artist ? 'Artist: ' + img.dataset.artist : '';
+            modalDate.textContent = img.dataset.date ? 'Date: ' + img.dataset.date : '';
+            modalPlace.textContent = img.dataset.place ? 'Place: ' + img.dataset.place : '';
+            modalSource.innerHTML = img.dataset.source ? 'Source: <a href="'+img.dataset.source+'" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>' : '';
+            // show modal (use aria-hidden + CSS transitions)
+            modal.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+          }
+
+          function closeModal(){
+            // start hide animation by setting aria-hidden true
+            modal.setAttribute('aria-hidden','true');
+            document.body.style.overflow = '';
+          }
+
+          // after hide transition, clear image src to free memory
+          modalContent.addEventListener('transitionend', (e) => {
+            if (modal.getAttribute('aria-hidden') === 'true' && e.propertyName === 'opacity') {
+              modalImage.src = '';
+            }
+          });
+
+          // fallback for modal image load failures
+          modalImage.addEventListener('error', () => {
+            if (!modalImage.dataset._errored) {
+              modalImage.dataset._errored = '1';
+              modalImage.src = 'assets/placeholder.svg';
+            }
+          });
+
+          document.querySelectorAll('.art-card img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => openModal(img));
+            img.addEventListener('error', () => {
+              // Robust retry strategy for transient failures (429 / rate limits).
+              if (!img.dataset.origSrc) img.dataset.origSrc = img.src || '';
+              const orig = img.dataset.origSrc;
+              const attempts = parseInt(img.dataset.attempts || '0', 10);
+              const maxAttempts = 4;
+              if (attempts >= maxAttempts) {
+                img.src = 'assets/placeholder.svg';
+                img.alt = 'Placeholder image';
+                return;
+              }
+              img.dataset.attempts = String(attempts + 1);
+
+              // If this looks like a Wikimedia URL, try a thumbnail variant first.
+              const isWikimedia = /https:\/\/upload\.wikimedia\.org\//.test(orig);
+              if (isWikimedia && !img.dataset.triedThumb) {
+                img.dataset.triedThumb = '1';
+                try {
+                  const m = orig.match(/(https:\/\/upload\.wikimedia\.org\/wikipedia\/)([^\/]+)\/(.+)$/);
+                  if (m) {
+                    const prefix = m[1];
+                    const lang = m[2];
+                    const rest = m[3];
+                    const parts = rest.split('/');
+                    const basename = parts[parts.length-1];
+                    const size = Math.min(1024, Math.max(300, Math.round((img.width||600))));
+                    const thumb = prefix + lang + '/thumb/' + parts.slice(0).join('/') + '/' + size + 'px-' + basename;
+                    // try thumb variant immediately
+                    img.src = thumb;
+                    // allow further error events to trigger retries, so return here
+                    return;
+                  }
+                } catch (e) {}
+              }
+
+              // For transient rate limits (429) we retry after delays. Use exponential backoff.
+              const backoff = [800, 2000, 6000, 15000];
+              const delay = backoff[Math.min(attempts, backoff.length-1)];
+              setTimeout(() => {
+                // retry original URL (or the thumb we previously set)
+                img.src = orig;
+              }, delay);
+            });
+          });
+          });
+
+          modalClose.addEventListener('click', closeModal);
+          modalBackdrop.addEventListener('click', closeModal);
+          document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+        })();
+      </script>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h4>Submit your work to the next drop</h4>
+        <p>We highlight emerging voices every season. Share your portfolio and join the collection.</p>
+      </div>
+      <a class="btn" href="upload.html">Upload Your Art</a>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
+  </footer>
+</body>
+</html>
