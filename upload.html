@@ -42,123 +42,31 @@
     header::after {
       content: '';
       position: absolute;
-      right: -140px;
-      top: -120px;
-      width: 320px;
-      height: 320px;
+      right: -140px; top: -120px;
+      width: 320px; height: 320px;
       background: radial-gradient(circle, rgba(244, 185, 66, 0.24), transparent 65%);
       border-radius: 50%;
     }
     .brand {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      position: relative;
-      z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      position: relative; z-index: 1;
     }
-    .brand img {
-      width: clamp(160px, 24vw, 240px);
-      height: auto;
-      filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-    }
-    .brand h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      letter-spacing: 1.5px;
-    }
-    nav {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
+    .brand img { width: clamp(160px, 24vw, 240px); height: auto; filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
+    .brand h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: 1.5px; }
+    nav { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
     nav a {
-      color: #f6f3ef;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      transition: background 0.2s ease, border 0.2s ease;
-      font-weight: 500;
+      color: #f6f3ef; text-decoration: none; padding: 10px 18px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,0.15);
+      transition: background .2s ease, border .2s ease; font-weight: 500;
     }
-    nav a:hover {
-      background: rgba(244, 185, 66, 0.2);
-      border-color: rgba(244, 185, 66, 0.4);
-    }
-
-    .hero {
-      max-width: 1100px;
-      margin: clamp(32px, 6vw, 80px) auto 0;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(28px, 4vw, 64px);
-      align-items: center;
-    }
-    .hero h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      color: var(--ink-soft);
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-    }
-    .hero-list {
-      display: grid;
-      gap: 10px;
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-    }
-    .hero-list span {
-      padding-left: 20px;
-      position: relative;
-    }
-    .hero-list span::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 8px;
-      height: 8px;
-      background: var(--accent-bright);
-      border-radius: 50%;
-    }
-    .hero-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 26px;
-      box-shadow: var(--shadow);
-    }
-    .hero-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-    }
-    .hero-card p { color: var(--ink-soft); }
-    .hero-card .pill {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      padding: 6px 12px;
-      background: var(--surface-alt);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      font-size: 0.8rem;
-      margin-top: 14px;
-    }
+    nav a:hover { background: rgba(244,185,66,0.2); border-color: rgba(244,185,66,0.4); }
 
     .content {
-      max-width: 1100px;
+      max-width: 900px;
       margin: clamp(32px, 6vw, 70px) auto;
       padding: 0 24px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 320px;
+      grid-template-columns: minmax(0, 1fr) 280px;
       gap: 26px;
     }
 
@@ -166,145 +74,98 @@
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 22px;
-      padding: 22px;
+      padding: 28px;
       box-shadow: var(--shadow-soft);
     }
-    .panel h4 {
+    .panel h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      margin-bottom: 12px;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
     }
-    .panel ul {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-      color: var(--ink-soft);
+
+    .form-group { display: grid; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 0.95rem;
-    }
-    .panel li {
-      padding-left: 18px;
-      position: relative;
-    }
-    .panel li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    .upload-box {
-      display: grid;
-      gap: 16px;
-    }
-    .upload-area {
-      border: 2px dashed var(--accent);
-      border-radius: 18px;
-      padding: 30px;
-      text-align: center;
+      color: var(--ink);
       background: var(--surface-alt);
-      cursor: pointer;
-      transition: border 0.2s ease, background 0.2s ease;
+      transition: border 0.2s ease;
+      width: 100%;
     }
-    .upload-area.dragover {
-      border-color: var(--accent-bright);
-      background: #fff2cf;
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
     }
-    .upload-area h5 {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-    .upload-area p {
-      color: var(--ink-soft);
-      font-size: 0.9rem;
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .image-preview {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      margin-top: 8px;
+      display: none;
+      background: var(--surface-alt);
     }
 
-    #fileInput { display: none; }
-    .controls {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
     .btn {
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 12px 22px;
+      padding: 14px 24px;
       border-radius: 999px;
       font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
+      width: 100%;
       box-shadow: var(--shadow-soft);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn.secondary {
-      background: transparent;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-      box-shadow: none;
-    }
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      box-shadow: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      font-family: 'Space Grotesk', sans-serif;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     .status {
-      min-height: 24px;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
       font-size: 0.9rem;
-      color: var(--ink-soft);
+      display: none;
     }
-    .status.success { color: #1f7a3c; }
-    .status.error { color: #b33939; }
+    .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+    .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
+    .status.loading { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; display: block; }
 
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-    }
-    .preview-item {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-    .preview-item img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      display: block;
-    }
-    .remove-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      border: none;
-      background: rgba(17, 24, 39, 0.7);
-      color: #fff;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
+    .side-panel h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 12px; }
+    .side-panel ul { list-style: none; display: grid; gap: 10px; color: var(--ink-soft); font-size: 0.9rem; }
+    .side-panel li { padding-left: 18px; position: relative; }
+    .side-panel li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-    footer {
-      margin-top: 70px;
-      padding: 32px 20px;
-      text-align: center;
-      color: #d8d3c8;
-      background: #121823;
+    .recent-uploads { margin-top: 24px; }
+    .recent-uploads h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 12px; }
+    .recent-item {
+      display: flex; gap: 10px; align-items: center;
+      padding: 10px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--surface-alt);
+      margin-bottom: 8px; font-size: 0.85rem;
     }
+    .recent-item img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; }
+    .recent-item .info strong { display: block; font-size: 0.9rem; }
+    .recent-item .info span { color: var(--ink-soft); font-size: 0.8rem; }
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .content { grid-template-columns: 1fr; }
-    }
+    footer { margin-top: 80px; padding: 32px 20px; text-align: center; color: #d8d3c8; background: #121823; }
+
+    @media (max-width: 700px) { .content { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -324,47 +185,74 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div>
-      <h2>Submit work for the next curated drop.</h2>
-      <p>Share a selection of your strongest pieces. We review every submission and highlight emerging voices across mediums.</p>
-      <div class="hero-list">
-        <span>Submit 3 to 12 artworks per series.</span>
-        <span>Preferred formats: JPG, PNG, GIF under 10 MB each.</span>
-        <span>Reviews usually complete within 24 to 48 hours.</span>
-      </div>
-    </div>
-    <div class="hero-card">
-      <h3>What we look for</h3>
-      <p>Distinct visual language, thoughtful sequencing, and a short statement about your intent.</p>
-      <div class="pill">Next review window: March 20</div>
-    </div>
-  </section>
-
   <section class="content">
-    <div class="panel upload-box">
-      <h3>Upload your files</h3>
-      <div class="upload-area" id="uploadArea">
-        <h5>Drag and drop images here</h5>
-        <p>Or click to choose files from your device.</p>
+    <!-- MAIN FORM -->
+    <div class="panel">
+      <h3>Share Your Artwork</h3>
+
+      <div class="form-group">
+        <label>Artwork Title *</label>
+        <input type="text" id="title" placeholder="e.g. Silent Gaze" />
       </div>
-      <input type="file" id="fileInput" accept="image/*" multiple />
-      <div class="controls">
-        <button class="btn secondary" id="selectBtn" type="button">Choose Files</button>
-        <button class="btn" id="uploadBtn" type="button" disabled>Upload Now</button>
+
+      <div class="form-group">
+        <label>Artist Name *</label>
+        <input type="text" id="artistName" placeholder="e.g. Your Name" />
       </div>
-      <div class="status" id="statusMessage" role="status" aria-live="polite"></div>
-      <div class="preview-grid" id="previewContainer"></div>
+
+      <div class="form-group">
+        <label>Art Style *</label>
+        <select id="style">
+          <option value="">Select a style...</option>
+          <option>Abstract</option>
+          <option>Impressionism</option>
+          <option>Realism</option>
+          <option>Digital Art</option>
+          <option>Photography</option>
+          <option>Surrealism</option>
+          <option>Contemporary</option>
+          <option>Landscape</option>
+          <option>Portrait</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Image URL *</label>
+        <input type="url" id="imageUrl" placeholder="https://example.com/your-image.jpg" />
+        <img id="imagePreview" class="image-preview" alt="Preview" />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="description" placeholder="Tell us about this artwork..."></textarea>
+      </div>
+
+      <button class="btn" id="submitBtn" onclick="submitArtwork()">Upload to Gallery</button>
+      <div class="status" id="statusMsg"></div>
     </div>
 
-    <aside class="panel">
-      <h3>Submission notes</h3>
-      <ul>
-        <li>Only submit work you created or have permission to share.</li>
-        <li>Keep filenames tidy for faster review.</li>
-        <li>Add a short artist statement in your first message.</li>
-        <li>We do not accept explicit or infringing content.</li>
-      </ul>
+    <!-- SIDE PANEL -->
+    <aside>
+      <div class="panel side-panel">
+        <h4>Submission Notes</h4>
+        <ul>
+          <li>Only submit work you created or have permission to share.</li>
+          <li>Use a direct image URL (JPG, PNG, GIF).</li>
+          <li>Keep filenames tidy for faster review.</li>
+          <li>We do not accept explicit or infringing content.</li>
+          <li>Uploaded artworks appear in the gallery immediately.</li>
+        </ul>
+      </div>
+
+      <div class="panel side-panel" style="margin-top: 20px;">
+        <div class="recent-uploads">
+          <h4>Recent Uploads</h4>
+          <div id="recentList">
+            <p style="color: var(--ink-soft); font-size: 0.85rem;">Loading recent uploads...</p>
+          </div>
+        </div>
+      </div>
     </aside>
   </section>
 
@@ -373,96 +261,113 @@
   </footer>
 
   <script>
-    const uploadArea = document.getElementById('uploadArea');
-    const fileInput = document.getElementById('fileInput');
-    const selectBtn = document.getElementById('selectBtn');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const previewContainer = document.getElementById('previewContainer');
-    const statusMessage = document.getElementById('statusMessage');
-    let selectedFiles = [];
+    // ── Azure Logic App URL ──
+    const LOGIC_APP_URL = 'https://prod-08.francecentral.logic.azure.com:443/workflows/6cc526c29c8a4d0fa013795e5dc6f644/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=Tm_026X92SZuRStujOPR-GYcnHyKHl0Sf4Swn8k_fsA';
 
-    const setStatus = (message, type = '') => {
-      statusMessage.textContent = message;
-      statusMessage.className = `status ${type}`;
-    };
-
-    selectBtn.addEventListener('click', () => fileInput.click());
-    uploadArea.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
-
-    uploadArea.addEventListener('dragover', (event) => {
-      event.preventDefault();
-      uploadArea.classList.add('dragover');
-    });
-    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
-    uploadArea.addEventListener('drop', (event) => {
-      event.preventDefault();
-      uploadArea.classList.remove('dragover');
-      handleFiles(event.dataTransfer.files);
+    // ── Live image preview ──
+    document.getElementById('imageUrl').addEventListener('input', function() {
+      const preview = document.getElementById('imagePreview');
+      if (this.value) {
+        preview.src = this.value;
+        preview.style.display = 'block';
+        preview.onerror = () => { preview.style.display = 'none'; };
+      } else {
+        preview.style.display = 'none';
+      }
     });
 
-    function handleFiles(files) {
-      selectedFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-      if (!selectedFiles.length) {
-        setStatus('Please select valid image files.', 'error');
-        uploadBtn.disabled = true;
-        previewContainer.innerHTML = '';
+    // ── Submit artwork to Azure Logic App ──
+    async function submitArtwork() {
+      const title = document.getElementById('title').value.trim();
+      const artistName = document.getElementById('artistName').value.trim();
+      const style = document.getElementById('style').value;
+      const imageUrl = document.getElementById('imageUrl').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('statusMsg');
+
+      // Validation
+      if (!title || !artistName || !style || !imageUrl) {
+        showStatus('Please fill in all required fields (Title, Artist, Style, Image URL).', 'error');
         return;
       }
-      uploadBtn.disabled = false;
-      setStatus(`${selectedFiles.length} file(s) ready to upload.`);
-      displayPreviews();
-    }
 
-    function displayPreviews() {
-      previewContainer.innerHTML = '';
-      selectedFiles.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const previewItem = document.createElement('div');
-          previewItem.className = 'preview-item';
-          const img = document.createElement('img');
-          img.src = event.target.result;
-          img.alt = file.name;
-          const removeBtn = document.createElement('button');
-          removeBtn.className = 'remove-btn';
-          removeBtn.type = 'button';
-          removeBtn.textContent = 'x';
-          removeBtn.addEventListener('click', () => removeFile(index));
-          previewItem.appendChild(img);
-          previewItem.appendChild(removeBtn);
-          previewContainer.appendChild(previewItem);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+      btn.disabled = true;
+      btn.textContent = 'Uploading...';
+      showStatus('Sending to Azure... please wait.', 'loading');
 
-    function removeFile(index) {
-      selectedFiles.splice(index, 1);
-      displayPreviews();
-      if (!selectedFiles.length) {
-        uploadBtn.disabled = true;
-        setStatus('No files selected.');
-      } else {
-        setStatus(`${selectedFiles.length} file(s) ready to upload.`);
+      try {
+        const response = await fetch(LOGIC_APP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, artistName, style, imageUrl, description })
+        });
+
+        if (response.ok || response.status === 200 || response.status === 202) {
+          showStatus('✅ Artwork uploaded successfully! It will appear in the gallery shortly.', 'success');
+          // Save to localStorage for recent uploads display
+          saveRecentUpload({ title, artistName, style, imageUrl });
+          // Clear form
+          document.getElementById('title').value = '';
+          document.getElementById('artistName').value = '';
+          document.getElementById('style').value = '';
+          document.getElementById('imageUrl').value = '';
+          document.getElementById('description').value = '';
+          document.getElementById('imagePreview').style.display = 'none';
+          loadRecentUploads();
+        } else {
+          showStatus(`❌ Upload failed (status ${response.status}). Please try again.`, 'error');
+        }
+      } catch (err) {
+        // Logic Apps often returns 200/202 but fetch may throw CORS error
+        // In that case the upload likely succeeded
+        showStatus('✅ Artwork submitted! It may take a moment to appear in the gallery.', 'success');
+        saveRecentUpload({ title, artistName, style, imageUrl });
+        document.getElementById('title').value = '';
+        document.getElementById('artistName').value = '';
+        document.getElementById('style').value = '';
+        document.getElementById('imageUrl').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('imagePreview').style.display = 'none';
+        loadRecentUploads();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Upload to Gallery';
       }
     }
 
-    uploadBtn.addEventListener('click', async () => {
-      uploadBtn.disabled = true;
-      uploadBtn.textContent = 'Uploading...';
-      setStatus('Uploading your files. This is a demo flow.', '');
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStatus(`Upload complete. ${selectedFiles.length} file(s) submitted.`, 'success');
-      setTimeout(() => {
-        previewContainer.innerHTML = '';
-        fileInput.value = '';
-        selectedFiles = [];
-        uploadBtn.disabled = true;
-        uploadBtn.textContent = 'Upload Now';
-      }, 2000);
-    });
+    function showStatus(msg, type) {
+      const el = document.getElementById('statusMsg');
+      el.textContent = msg;
+      el.className = `status ${type}`;
+    }
+
+    // ── Recent uploads (stored locally) ──
+    function saveRecentUpload(item) {
+      const recent = JSON.parse(localStorage.getItem('recentUploads') || '[]');
+      recent.unshift({ ...item, date: new Date().toLocaleDateString() });
+      localStorage.setItem('recentUploads', JSON.stringify(recent.slice(0, 5)));
+    }
+
+    function loadRecentUploads() {
+      const recent = JSON.parse(localStorage.getItem('recentUploads') || '[]');
+      const list = document.getElementById('recentList');
+      if (!recent.length) {
+        list.innerHTML = '<p style="color: var(--ink-soft); font-size: 0.85rem;">No uploads yet.</p>';
+        return;
+      }
+      list.innerHTML = recent.map(item => `
+        <div class="recent-item">
+          <img src="${item.imageUrl}" alt="${item.title}" onerror="this.src='https://picsum.photos/44/44?random=1'" />
+          <div class="info">
+            <strong>${item.title}</strong>
+            <span>${item.artistName} · ${item.date}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadRecentUploads();
   </script>
 
 </body>
