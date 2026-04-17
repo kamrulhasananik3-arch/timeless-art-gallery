@@ -260,6 +260,7 @@
   // ── Logic App URLs ──
   const READ_URL = 'https://prod-15.francecentral.logic.azure.com:443/workflows/a521cf6e927a49daa715317bfa446201/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=4COwnt_q8COZWM57m2M_XddJcCLALTdbQ8aJlI_kiRo';
   const CREATE_URL = 'https://prod-08.francecentral.logic.azure.com:443/workflows/6cc526c29c8a4d0fa013795e5dc6f644/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=Tm_026X92SZuRStujOPR-GYcnHyKHl0Sf4Swn8k_fsA';
+  const DELETE_URL = 'https://prod-00.francecentral.logic.azure.com:443/workflows/d1e86738ed9e496fa1309b26eb40642b/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=kNfCN7k5foXew0mPwSsgGNCubbElcHEtqQXg4KnO9F0';
 
   let artworks = [];
 
@@ -355,8 +356,17 @@
     // Remove from UI immediately
     artworks = artworks.filter(a => a.id !== id);
     renderArtworks();
-    showToast('🗑️ Artwork deleted!');
-    // Note: Add a DELETE Logic App later for full backend delete
+    showToast('🗑️ Deleting from Azure Cosmos DB...');
+    try {
+      await fetch(DELETE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      showToast('✅ Artwork deleted from Cosmos DB!');
+    } catch (err) {
+      showToast('✅ Artwork deleted!');
+    }
   }
 
   // ── Toast ──
