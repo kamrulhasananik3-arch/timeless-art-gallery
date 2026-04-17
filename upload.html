@@ -222,6 +222,7 @@
       font-size: 0.9rem;
     }
 
+    #fileInput { display: none; }
     .controls {
       display: flex;
       gap: 12px;
@@ -342,12 +343,12 @@
 
   <section class="content">
     <div class="panel upload-box">
-      <h4>Upload your files</h4>
+      <h3>Upload your files</h3>
       <div class="upload-area" id="uploadArea">
         <h5>Drag and drop images here</h5>
         <p>Or click to choose files from your device.</p>
       </div>
-      <input type="file" id="fileInput" accept="image/*" multiple style="display:none;" />
+      <input type="file" id="fileInput" accept="image/*" multiple />
       <div class="controls">
         <button class="btn secondary" id="selectBtn" type="button">Choose Files</button>
         <button class="btn" id="uploadBtn" type="button" disabled>Upload Now</button>
@@ -357,7 +358,7 @@
     </div>
 
     <aside class="panel">
-      <h4>Submission notes</h4>
+      <h3>Submission notes</h3>
       <ul>
         <li>Only submit work you created or have permission to share.</li>
         <li>Keep filenames tidy for faster review.</li>

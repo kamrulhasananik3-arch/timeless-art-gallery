@@ -60,12 +60,6 @@ document.getElementById('albumMeta').textContent = `Era: ${meta.era} | Region: $
 
 const grid = document.getElementById('albumGrid');
 
-const stripHtml = (text) => {
-  const div = document.createElement('div');
-  div.innerHTML = text || '';
-  return div.textContent || div.innerText || '';
-};
-
 // Build an Unsplash Source URL (no API key) for images matching a query
 const buildUnsplashUrl = (query, width = 480, height = 320, seed = 0) => {
   const q = (query || 'art').split(/\s+/).slice(0,3).join(' ');
@@ -198,9 +192,8 @@ const renderAlbumItems = (items, categoryName) => {
     grid.appendChild(card);
 
     const img = card.querySelector('img');
-    // set crossOrigin to improve CORS behavior for some hosts
-    try { img.crossOrigin = 'anonymous'; } catch (e) { /* ignore */ }
-    try { img.referrerPolicy = 'no-referrer'; } catch (e) { /* ignore */ }
+    img.crossOrigin = 'anonymous';
+    img.referrerPolicy = 'no-referrer';
 
     // robust fallback: try Picsum as last resort if Unsplash fails
     img.addEventListener('error', () => {
