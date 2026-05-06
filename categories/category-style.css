@@ -29,9 +29,7 @@ header {
   background: linear-gradient(135deg, #0e121b 0%, #1d2736 100%);
   color: #f6f3ef;
   padding: clamp(28px, 5vw, 80px) 24px clamp(18px, 4vw, 64px);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  position: relative;
   overflow: visible;
   text-align: center;
 }

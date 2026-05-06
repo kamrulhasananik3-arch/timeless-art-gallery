@@ -37,9 +37,7 @@ header{
   -webkit-backdrop-filter:blur(16px);
   color:#f6f3ef;
   padding:clamp(28px,5vw,80px) 24px clamp(18px,4vw,64px);
-  position:sticky;
-  top:0;
-  z-index:1000;
+  position:relative;
   overflow:visible;
   border-bottom:1px solid transparent;
   transition:border-color .3s ease,background .3s ease,box-shadow .3s ease
