@@ -246,7 +246,7 @@
     @media (max-width: 700px) { .content { grid-template-columns: 1fr; } }
 
     /* ── Auth widget ── */
-    .auth-widget { position: absolute; top: 18px; right: 24px; z-index: 10; display: flex; align-items: center; }
+    .auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
     .auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
     .auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
     .auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
@@ -437,8 +437,12 @@
       }
     });
 
-    // ── Azure Logic App URL ──
+    // ── Azure config ──
     const LOGIC_APP_URL = 'https://prod-08.francecentral.logic.azure.com:443/workflows/6cc526c29c8a4d0fa013795e5dc6f644/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=Tm_026X92SZuRStujOPR-GYcnHyKHl0Sf4Swn8k_fsA';
+    const BLOB_ACCOUNT   = 'https://timelessartstore.blob.core.windows.net';
+    const BLOB_CONTAINER = 'artworks';
+    // SAS token with write permission for the artworks container (no leading ?)
+    const BLOB_SAS_TOKEN = 'sv=2025-11-05&ss=bfqt&srt=o&sp=rwdlacupiytfx&se=2027-05-07T01:04:57Z&st=2026-05-06T16:49:57Z&spr=https&sig=Xjy%2B53ay%2B0qnqwjtQfSBkbiX6pcVSOXf%2BIvFD%2FD%2B5kY%3D';
 
     // ── Drag-and-drop logic ──
     let selectedFile = null;
@@ -485,7 +489,28 @@
       reader.readAsDataURL(file);
     }
 
-    // ── Submit artwork to Azure Logic App ──
+    // ── Upload file binary to Azure Blob Storage, return public URL ──
+    async function uploadToBlob(file) {
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const filename = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+      const uploadUrl = BLOB_ACCOUNT + '/' + BLOB_CONTAINER + '/' + filename + '?' + BLOB_SAS_TOKEN;
+
+      const res = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: {
+          'x-ms-blob-type': 'BlockBlob',
+          'Content-Type': file.type || 'application/octet-stream'
+        },
+        body: file
+      });
+
+      if (!res.ok) throw new Error('Blob Storage upload failed (HTTP ' + res.status + ')');
+
+      // Return the public URL without the SAS token
+      return BLOB_ACCOUNT + '/' + BLOB_CONTAINER + '/' + filename;
+    }
+
+    // ── Submit artwork: blob first, then metadata to Logic App ──
     async function submitArtwork() {
       const title = document.getElementById('title').value.trim();
       const artistName = document.getElementById('artistName').value.trim();
@@ -500,11 +525,14 @@
 
       btn.disabled = true;
       btn.textContent = 'Uploading...';
-      showStatus('Converting and sending to Azure... please wait.', 'loading');
 
       try {
-        const imageUrl = await fileToDataUrl(selectedFile);
+        // Step 1 — upload image binary to Blob Storage
+        showStatus('Step 1/2 — Uploading image to Azure Blob Storage...', 'loading');
+        const imageUrl = await uploadToBlob(selectedFile);
 
+        // Step 2 — save metadata (URL, not base64) to Cosmos DB via Logic App
+        showStatus('Step 2/2 — Saving artwork details...', 'loading');
         const uid = (firebase.auth().currentUser || {}).uid || '';
         const response = await fetch(LOGIC_APP_URL, {
           method: 'POST',
@@ -515,26 +543,14 @@
         if (response.ok || response.status === 200 || response.status === 202) {
           handleSuccess({ title, artistName, style, imageUrl });
         } else {
-          showStatus('❌ Upload failed (status ' + response.status + '). Please try again.', 'error');
+          showStatus('Image uploaded but metadata save failed (status ' + response.status + '). Please try again.', 'error');
         }
       } catch (err) {
-        // Logic Apps often returns 200/202 but fetch may throw a CORS error;
-        // in that case the upload likely succeeded.
-        const imageUrl = imagePreview.src;
-        handleSuccess({ title, artistName, style, imageUrl });
+        showStatus('Upload failed: ' + (err.message || err), 'error');
       } finally {
         btn.disabled = false;
         btn.textContent = 'Upload to Gallery';
       }
-    }
-
-    function fileToDataUrl(file) {
-      return new Promise(function(resolve, reject) {
-        const reader = new FileReader();
-        reader.onload = function(e) { resolve(e.target.result); };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
     }
 
     function handleSuccess(item) {
