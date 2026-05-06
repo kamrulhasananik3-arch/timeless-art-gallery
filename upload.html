@@ -532,10 +532,11 @@
         // Step 2 — save metadata (URL, not base64) to Cosmos DB via Logic App
         showStatus('Step 2/2 — Saving artwork details...', 'loading');
         const uid = (firebase.auth().currentUser || {}).uid || '';
+        const artworkId = Date.now().toString() + '-' + Math.random().toString(36).slice(2, 9);
         const response = await fetch(LOGIC_APP_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, artistName, style, imageUrl, description, uid })
+          body: JSON.stringify({ id: artworkId, title, artistName, style, imageUrl, description, uid })
         });
 
         if (response.ok || response.status === 200 || response.status === 202) {
