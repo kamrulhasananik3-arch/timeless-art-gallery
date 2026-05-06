@@ -9,12 +9,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <meta name="description" content="Timeless Art Gallery — curated exhibitions, artist profiles, and an open submissions gallery.">
+  <style>
+    /* ── Auth widget ── */
+    .auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
+    .auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
+    .auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
+    .auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
+    .auth-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f4b942, #e8a82e); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #1c1c22; flex-shrink: 0; }
+    .auth-name { font-size: 0.84rem; font-weight: 600; color: #f6f3ef; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .auth-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: #1a2333; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px; min-width: 160px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .auth-dropdown.open { display: block; }
+    .auth-dd-item { display: block; width: 100%; padding: 10px 14px; border-radius: 8px; background: none; border: none; color: #f6f3ef; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; text-decoration: none; transition: background .15s; }
+    .auth-dd-item:hover { background: rgba(255,255,255,0.07); }
+    .auth-dd-item.danger { color: #f87171; }
+  </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" width="160" height="160" />
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Timeless Art Gallery">
+        <rect x="15" y="4" width="70" height="56" rx="4"/>
+        <line x1="10" y1="52" x2="90" y2="52"/>
+        <line x1="50" y1="60" x2="15" y2="88"/>
+        <line x1="50" y1="60" x2="85" y2="88"/>
+        <line x1="50" y1="60" x2="50" y2="88"/>
+        <line x1="28" y1="76" x2="72" y2="76"/>
+      </svg>
       <h1>Timeless Art Gallery</h1>
       <nav>
         <a href="index.html">Home</a>
@@ -25,6 +46,18 @@
         <a href="artworks.html">My Uploads</a>
         <a href="upload.html">Upload</a>
       </nav>
+    </div>
+    <div id="authWidget" class="auth-widget">
+      <a href="login.html" id="wSignIn" class="auth-signin-btn">Sign In</a>
+      <div id="wUser" class="auth-user-pill" onclick="toggleAuthDd(event)">
+        <div id="wAvatar" class="auth-avatar">?</div>
+        <span id="wName" class="auth-name"></span>
+        <div id="wDropdown" class="auth-dropdown">
+          <a href="upload.html" class="auth-dd-item">Upload Art</a>
+          <a href="artworks.html" class="auth-dd-item">My Uploads</a>
+          <button class="auth-dd-item danger" onclick="authSignOut()">Sign Out</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -517,5 +550,96 @@
   <footer>
     © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
   </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+        authDomain: "timeless-art-gallery.firebaseapp.com",
+        projectId: "timeless-art-gallery",
+        storageBucket: "timeless-art-gallery.firebasestorage.app",
+        messagingSenderId: "681338547049",
+        appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+      });
+    }
+    function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function() { const dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+    function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = 'index.html'; }); }
+    firebase.auth().onAuthStateChanged(function(user) {
+      const si = document.getElementById('wSignIn');
+      const up = document.getElementById('wUser');
+      if (!si || !up) return;
+      if (user) {
+        si.style.display = 'none';
+        up.style.display = 'flex';
+        const n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      } else {
+        si.style.display = 'flex';
+        si.href = 'login.html?from=' + encodeURIComponent(location.href);
+        up.style.display = 'none';
+      }
+    });
+  </script>
+
+  <script>
+    /* ── Sticky header: glassmorphism border on scroll ── */
+    (function(){
+      var hdr = document.querySelector('header');
+      window.addEventListener('scroll', function(){
+        hdr.classList.toggle('scrolled', window.scrollY > 10);
+      }, {passive: true});
+    })();
+
+    /* ── Hero parallax (rAF-throttled) ── */
+    (function(){
+      var hero = document.querySelector('.hero');
+      if (!hero) return;
+      var ticking = false;
+      window.addEventListener('scroll', function(){
+        if (!ticking) {
+          requestAnimationFrame(function(){
+            var y = window.scrollY;
+            if (y < hero.offsetHeight * 1.6) {
+              hero.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, {passive: true});
+    })();
+
+    /* ── Skeleton loading + hover overlay injection ── */
+    (function(){
+      document.querySelectorAll('.art-card').forEach(function(card){
+        var img = card.querySelector('img');
+        if (img) {
+          if (!(img.complete && img.naturalWidth > 0)) {
+            card.classList.add('img-loading');
+            img.addEventListener('load', function(){ card.classList.remove('img-loading'); });
+            img.addEventListener('error', function(){ card.classList.remove('img-loading'); });
+          }
+        }
+
+        var meta = card.querySelector('.art-meta');
+        if (meta) {
+          var titleEl = meta.querySelector('h4');
+          var artistEl = meta.querySelector('p');
+          var titleText = titleEl ? titleEl.textContent : '';
+          var artistText = artistEl ? artistEl.textContent.split('\xb7')[0].trim() : '';
+          var overlay = document.createElement('div');
+          overlay.className = 'art-card-overlay';
+          overlay.innerHTML =
+            '<div class="ov-title">' + titleText + '</div>' +
+            (artistText ? '<div class="ov-artist">' + artistText + '</div>' : '');
+          card.appendChild(overlay);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

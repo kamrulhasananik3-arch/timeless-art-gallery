@@ -43,15 +43,30 @@ header::after {
   background: radial-gradient(circle, rgba(244, 185, 66, 0.24), transparent 65%);
   border-radius: 50%;
 }
-header img {
-  width: clamp(150px, 20vw, 220px);
+header img, header svg.brand-logo {
+  width: 80px;
+  max-width: 80px;
   height: auto;
   filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
   margin: 0 auto 16px;
   display: block;
   position: relative;
   z-index: 1;
+  color: #f6f3ef;
 }
+
+/* AUTH WIDGET */
+.auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
+.auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
+.auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
+.auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
+.auth-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f4b942, #e8a82e); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #1c1c22; flex-shrink: 0; }
+.auth-name { font-size: 0.84rem; font-weight: 600; color: #f6f3ef; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.auth-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: #1a2333; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px; min-width: 160px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+.auth-dropdown.open { display: block; }
+.auth-dd-item { display: block; width: 100%; padding: 10px 14px; border-radius: 8px; background: none; border: none; color: #f6f3ef; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; text-decoration: none; transition: background .15s; }
+.auth-dd-item:hover { background: rgba(255,255,255,0.07); }
+.auth-dd-item.danger { color: #f87171; }
 header h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 4vw, 3.2rem);
@@ -79,7 +94,8 @@ nav a {
   color: #f6f3ef;
   text-decoration: none;
   font-weight: 500;
-  padding: 10px 18px;
+  font-size: 0.9rem;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.15);
   transition: background 0.2s ease, border 0.2s ease;

@@ -16,8 +16,21 @@
       <a href="../explore.html">Explore</a>
       <a href="../artists.html">Artists</a>
       <a href="../information.html">Information</a>
+      <a href="../artworks.html">My Uploads</a>
       <a href="../upload.html">Upload</a>
     </nav>
+    <div id="authWidget" class="auth-widget">
+      <a href="../login.html" id="wSignIn" class="auth-signin-btn">Sign In</a>
+      <div id="wUser" class="auth-user-pill" onclick="toggleAuthDd(event)">
+        <div id="wAvatar" class="auth-avatar">?</div>
+        <span id="wName" class="auth-name"></span>
+        <div id="wDropdown" class="auth-dropdown">
+          <a href="../upload.html" class="auth-dd-item">Upload Art</a>
+          <a href="../artworks.html" class="auth-dd-item">My Uploads</a>
+          <button class="auth-dd-item danger" onclick="authSignOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -34,7 +47,77 @@
   </footer>
 
   <script src="category-page.js"></script>
+
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+        authDomain: "timeless-art-gallery.firebaseapp.com",
+        projectId: "timeless-art-gallery",
+        storageBucket: "timeless-art-gallery.firebasestorage.app",
+        messagingSenderId: "681338547049",
+        appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+      });
+    }
+    function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function() { var dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+    function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = '../index.html'; }); }
+    firebase.auth().onAuthStateChanged(function(user) {
+      var si = document.getElementById('wSignIn');
+      var up = document.getElementById('wUser');
+      if (!si || !up) return;
+      if (user) {
+        si.style.display = 'none';
+        up.style.display = 'flex';
+        var n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      } else {
+        si.style.display = 'flex';
+        si.href = '../login.html?from=' + encodeURIComponent(location.href);
+        up.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
+
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+        authDomain: "timeless-art-gallery.firebaseapp.com",
+        projectId: "timeless-art-gallery",
+        storageBucket: "timeless-art-gallery.firebasestorage.app",
+        messagingSenderId: "681338547049",
+        appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+      });
+    }
+    function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function() { var dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+    function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = '../index.html'; }); }
+    firebase.auth().onAuthStateChanged(function(user) {
+      var si = document.getElementById('wSignIn');
+      var up = document.getElementById('wUser');
+      if (!si || !up) return;
+      if (user) {
+        si.style.display = 'none';
+        up.style.display = 'flex';
+        var n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      } else {
+        si.style.display = 'flex';
+        si.href = '../login.html?from=' + encodeURIComponent(location.href);
+        up.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

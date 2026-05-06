@@ -1,37 +1,39 @@
 const CATEGORY_DATA = {
-  'abstract-expressionism': { name: 'Abstract Expressionism', era: '1940s-1960s', region: 'United States', highlight: 'Gesture, large canvases, emotional intensity.', search: ['abstract expressionism painting', 'jackson pollock painting', 'mark rothko painting'] },
-  'contemporary-art': { name: 'Contemporary Art', era: '1970s-Present', region: 'Global', highlight: 'Diverse mediums and social commentary.', search: ['contemporary art painting', 'contemporary installation art', 'modern gallery artwork'] },
+  'abstract-expressionism': { name: 'Abstract Expressionism', era: '1940s-1960s', region: 'United States', highlight: 'Gesture, large canvases, emotional intensity.', search: ['abstract expressionism painting', 'abstract painting oil canvas', 'action painting gestural'] },
+  'contemporary-art': { name: 'Contemporary Art', era: '1970s-Present', region: 'Global', highlight: 'Diverse mediums and social commentary.', search: ['contemporary art painting', 'modern art gallery', 'figurative painting contemporary'] },
   'renaissance-art': { name: 'Renaissance Art', era: '14th-17th century', region: 'Europe', highlight: 'Perspective, anatomy, and humanist ideals.', search: ['renaissance painting', 'italian renaissance art', 'high renaissance artwork'] },
-  'impressionism': { name: 'Impressionism', era: '19th century', region: 'France', highlight: 'Light effects and visible brushwork.', search: ['impressionism painting', 'monet painting', 'impressionist artwork'] },
-  'realism': { name: 'Realism', era: '19th century', region: 'Europe', highlight: 'Everyday life painted without idealization.', search: ['realism painting art', 'gustave courbet painting', 'realist artwork'] },
-  'surrealism': { name: 'Surrealism', era: '1920s-1950s', region: 'Europe', highlight: 'Dream logic and subconscious imagery.', search: ['surrealism painting', 'salvador dali painting', 'surrealist artwork'] },
-  'cubism': { name: 'Cubism', era: '1907-1920s', region: 'France/Spain', highlight: 'Multiple viewpoints in fractured planes.', search: ['cubism painting', 'picasso cubist artwork', 'georges braque painting'] },
-  'baroque': { name: 'Baroque', era: '17th century', region: 'Europe', highlight: 'Drama, contrast, and dynamic motion.', search: ['baroque painting', 'caravaggio painting', 'baroque art'] },
-  'romanticism': { name: 'Romanticism', era: 'late 18th-19th century', region: 'Europe', highlight: 'Emotion, nature, and the sublime.', search: ['romanticism painting', 'caspar david friedrich painting', 'romantic art'] },
-  'neoclassicism': { name: 'Neoclassicism', era: '18th-19th century', region: 'Europe', highlight: 'Order and classical discipline.', search: ['neoclassicism painting', 'jacques louis david painting', 'neoclassical art'] },
-  'pop-art': { name: 'Pop Art', era: '1950s-1970s', region: 'US/UK', highlight: 'Mass culture and graphic repetition.', search: ['pop art painting', 'andy warhol art', 'roy lichtenstein painting'] },
-  'minimalism': { name: 'Minimalism', era: '1960s-1970s', region: 'United States', highlight: 'Reduction to essential forms.', search: ['minimalist art', 'minimalism painting', 'agnes martin painting'] },
-  'symbolism': { name: 'Symbolism', era: 'late 19th century', region: 'Europe', highlight: 'Myth, dream, and hidden meaning.', search: ['symbolist painting', 'gustave moreau painting', 'symbolism art'] },
-  'fauvism': { name: 'Fauvism', era: '1905-1910', region: 'France', highlight: 'Wild color and expressive freedom.', search: ['fauvism painting', 'henri matisse painting', 'fauvist artwork'] },
-  'dada': { name: 'Dada', era: '1916-1920s', region: 'Europe', highlight: 'Anti-art and conceptual provocation.', search: ['dada art', 'hannah hoch collage', 'marcel duchamp art'] },
-  'art-nouveau': { name: 'Art Nouveau', era: '1890-1910', region: 'Europe', highlight: 'Curving lines and decorative elegance.', search: ['art nouveau poster', 'alfons mucha art', 'art nouveau design'] },
-  'art-deco': { name: 'Art Deco', era: '1920s-1940s', region: 'Global', highlight: 'Geometry, luxury, and modern style.', search: ['art deco poster', 'art deco painting', 'art deco design'] },
-  'ukiyo-e': { name: 'Ukiyo-e', era: '17th-19th century', region: 'Japan', highlight: 'Woodblock prints of city life and landscapes.', search: ['ukiyo-e print', 'hokusai woodblock print', 'japanese woodblock art'] },
-  'byzantine-art': { name: 'Byzantine Art', era: '4th-15th century', region: 'Byzantine Empire', highlight: 'Icons, mosaics, and sacred symbolism.', search: ['byzantine mosaic', 'byzantine icon painting', 'byzantine art'] },
-  'islamic-art': { name: 'Islamic Art', era: '7th century-Present', region: 'Middle East and beyond', highlight: 'Calligraphy, geometry, and ornament.', search: ['islamic calligraphy art', 'islamic geometric pattern', 'persian miniature painting'] },
-  'bengal-art-heritage': { name: 'Bengal Art & Heritage', era: 'Ancient-Present', region: 'Bengal region', highlight: 'Patachitra, terracotta temples, and folk visual traditions.', search: ['bengal patachitra art', 'kalighat painting', 'bengal folk art'], museumQueries: ['india bengal painting', 'south asia india', 'india manuscript painting', 'india folk art', 'india sculpture', 'india textile', 'india miniature painting', 'india bronze sculpture'] },
-  'mughal-empire-art': { name: 'Mughal Empire Art', era: '16th-19th century', region: 'South Asia', highlight: 'Miniature painting, manuscript art, and imperial aesthetics.', search: ['mughal miniature painting', 'mughal manuscript art', 'mughal empire art'] },
-  'african-art': { name: 'African Art', era: 'Ancient-Present', region: 'Africa', highlight: 'Powerful forms, ritual, and identity.', search: ['african art mask', 'african sculpture art', 'traditional african art'] },
-  'street-art': { name: 'Street Art', era: 'late 20th century-Present', region: 'Global cities', highlight: 'Public murals and urban expression.', search: ['street art mural', 'graffiti artwork', 'urban wall art'] },
-  'digital-art': { name: 'Digital Art', era: 'late 20th century-Present', region: 'Global', highlight: 'Software-driven creativity and mixed media.', search: ['digital painting artwork', 'concept art digital', 'digital illustration art'] },
-  'photography': { name: 'Photography', era: '19th century-Present', region: 'Global', highlight: 'Light, timing, and visual storytelling.', search: ['fine art photography', 'portrait photography art', 'landscape photography'] },
-  'sculpture': { name: 'Sculpture', era: 'Ancient-Present', region: 'Global', highlight: 'Three-dimensional form and material craft.', search: ['marble sculpture art', 'bronze sculpture', 'classical sculpture'] },
-  'landscape-painting': { name: 'Landscape Painting', era: 'Classical-Present', region: 'Global', highlight: 'Place, weather, and atmosphere.', search: ['landscape painting art', 'mountain landscape painting', 'seascape painting'] },
-  'portraiture': { name: 'Portraiture', era: 'Ancient-Present', region: 'Global', highlight: 'Identity, status, and personality.', search: ['portrait painting art', 'classical portrait painting', 'oil portrait'] },
-  'still-life': { name: 'Still Life', era: 'Ancient-Present', region: 'Global', highlight: 'Objects, symbolism, and composition.', search: ['still life painting', 'fruit still life art', 'flower still life painting'] },
-  'conceptual-art': { name: 'Conceptual Art', era: '1960s-Present', region: 'Global', highlight: 'Idea-led practice over object-based work.', search: ['conceptual art installation', 'concept art gallery', 'conceptual artwork'] },
-  'modern-abstract': { name: 'Modern Abstract', era: '20th century-Present', region: 'Global', highlight: 'Non-representational color and form.', search: ['modern abstract painting', 'contemporary abstract art', 'abstract color composition'] }
+  'impressionism': { name: 'Impressionism', era: '19th century', region: 'France', highlight: 'Light effects and visible brushwork.', search: ['impressionism painting', 'monet impressionist painting', 'impressionist landscape art'] },
+  'realism': { name: 'Realism', era: '19th century', region: 'Europe', highlight: 'Everyday life painted without idealization.', search: ['realism painting art', 'realist figurative painting', 'courbet realism artwork'] },
+  'surrealism': { name: 'Surrealism', era: '1920s-1950s', region: 'Europe', highlight: 'Dream logic and subconscious imagery.', search: ['surrealism painting', 'surrealist dream painting', 'dali surrealist artwork'] },
+  'cubism': { name: 'Cubism', era: '1907-1920s', region: 'France/Spain', highlight: 'Multiple viewpoints in fractured planes.', search: ['cubism painting', 'cubist geometric artwork', 'braque cubist painting'] },
+  'baroque': { name: 'Baroque', era: '17th century', region: 'Europe', highlight: 'Drama, contrast, and dynamic motion.', search: ['baroque painting', 'caravaggio baroque art', 'baroque dramatic painting'] },
+  'romanticism': { name: 'Romanticism', era: 'late 18th-19th century', region: 'Europe', highlight: 'Emotion, nature, and the sublime.', search: ['romanticism painting', 'romantic landscape painting', 'caspar david friedrich painting'] },
+  'neoclassicism': { name: 'Neoclassicism', era: '18th-19th century', region: 'Europe', highlight: 'Order and classical discipline.', search: ['neoclassicism painting', 'neoclassical artwork', 'david neoclassical painting'] },
+  'pop-art': { name: 'Pop Art', era: '1950s-1970s', region: 'US/UK', highlight: 'Mass culture and graphic repetition.', search: ['pop art painting', 'pop art colorful graphic', 'andy warhol pop art'] },
+  'minimalism': { name: 'Minimalism', era: '1960s-1970s', region: 'United States', highlight: 'Reduction to essential forms.', search: ['minimalist art painting', 'geometric minimalist artwork', 'abstract minimalism art'] },
+  'symbolism': { name: 'Symbolism', era: 'late 19th century', region: 'Europe', highlight: 'Myth, dream, and hidden meaning.', search: ['symbolist painting', 'gustave moreau symbolism', 'symbolism art painting'] },
+  'fauvism': { name: 'Fauvism', era: '1905-1910', region: 'France', highlight: 'Wild color and expressive freedom.', search: ['fauvism painting', 'matisse fauvist painting', 'vibrant color expressionist art'] },
+  'dada': { name: 'Dada', era: '1916-1920s', region: 'Europe', highlight: 'Anti-art and conceptual provocation.', search: ['dada art collage', 'dada avant garde artwork', 'dada movement art'] },
+  'art-nouveau': { name: 'Art Nouveau', era: '1890-1910', region: 'Europe', highlight: 'Curving lines and decorative elegance.', search: ['art nouveau poster', 'mucha art nouveau painting', 'art nouveau decorative design'] },
+  'art-deco': { name: 'Art Deco', era: '1920s-1940s', region: 'Global', highlight: 'Geometry, luxury, and modern style.', search: ['art deco poster', 'art deco painting', 'art deco geometric design'] },
+  'ukiyo-e': { name: 'Ukiyo-e', era: '17th-19th century', region: 'Japan', highlight: 'Woodblock prints of city life and landscapes.', search: ['ukiyo-e woodblock print', 'hokusai japanese print', 'japanese ukiyo-e art'] },
+  'byzantine-art': { name: 'Byzantine Art', era: '4th-15th century', region: 'Byzantine Empire', highlight: 'Icons, mosaics, and sacred symbolism.', search: ['byzantine icon painting', 'byzantine mosaic art', 'byzantine religious artwork'] },
+  'islamic-art': { name: 'Islamic Art', era: '7th century-Present', region: 'Middle East and beyond', highlight: 'Calligraphy, geometry, and ornament.', search: ['islamic calligraphy art', 'persian miniature painting', 'islamic geometric art'] },
+  'bengal-art-heritage': { name: 'Bengal Art & Heritage', era: 'Ancient-Present', region: 'Bengal region', highlight: 'Patachitra, terracotta temples, and folk visual traditions.', search: ['bengal painting art', 'india folk art painting', 'india manuscript miniature painting'] },
+  'mughal-empire-art': { name: 'Mughal Empire Art', era: '16th-19th century', region: 'South Asia', highlight: 'Miniature painting, manuscript art, and imperial aesthetics.', search: ['mughal miniature painting', 'mughal manuscript art painting', 'india islamic miniature art'] },
+  'african-art': { name: 'African Art', era: 'Ancient-Present', region: 'Africa', highlight: 'Powerful forms, ritual, and identity.', search: ['african art painting', 'african tribal sculpture art', 'african traditional artwork'] },
+  'street-art': { name: 'Street Art', era: 'late 20th century-Present', region: 'Global cities', highlight: 'Public murals and urban expression.', search: ['street art mural painting', 'graffiti wall art', 'urban mural artwork'] },
+  'digital-art': { name: 'Digital Art', era: 'late 20th century-Present', region: 'Global', highlight: 'Software-driven creativity and mixed media.', search: ['digital art illustration', 'digital painting concept art', 'neon digital artwork'] },
+  'photography': { name: 'Photography', era: '19th century-Present', region: 'Global', highlight: 'Light, timing, and visual storytelling.', search: ['fine art photography', 'portrait photography art', 'landscape photography art'] },
+  'sculpture': { name: 'Sculpture', era: 'Ancient-Present', region: 'Global', highlight: 'Three-dimensional form and material craft.', search: ['marble sculpture art', 'bronze sculpture artwork', 'classical sculpture museum'] },
+  'landscape-painting': { name: 'Landscape Painting', era: 'Classical-Present', region: 'Global', highlight: 'Place, weather, and atmosphere.', search: ['landscape painting art', 'mountain landscape painting', 'seascape oil painting'] },
+  'portraiture': { name: 'Portraiture', era: 'Ancient-Present', region: 'Global', highlight: 'Identity, status, and personality.', search: ['portrait painting art', 'classical oil portrait', 'face portrait painting'] },
+  'still-life': { name: 'Still Life', era: 'Ancient-Present', region: 'Global', highlight: 'Objects, symbolism, and composition.', search: ['still life painting', 'flower still life art', 'fruit still life painting'] },
+  'conceptual-art': { name: 'Conceptual Art', era: '1960s-Present', region: 'Global', highlight: 'Idea-led practice over object-based work.', search: ['conceptual art installation', 'mixed media conceptual artwork', 'avant-garde art painting'] },
+  'modern-abstract': { name: 'Modern Abstract', era: '20th century-Present', region: 'Global', highlight: 'Non-representational color and form.', search: ['modern abstract painting', 'abstract color composition art', 'abstract expressionist painting'] }
 };
+
+const WIKI_API = 'https://commons.wikimedia.org/w/api.php';
 
 const body = document.body;
 const slug = body.dataset.category;
@@ -40,228 +42,184 @@ const meta = CATEGORY_DATA[slug] || {
   era: 'Various',
   region: 'Global',
   highlight: 'Curated art collection.',
-  search: ['painting art', 'museum artwork', 'fine art']
+  search: ['painting art', 'fine art museum', 'classical artwork']
 };
 
 const header = document.querySelector('header');
 if (header && !header.querySelector('.brand-logo')) {
-  const logo = document.createElement('img');
-  logo.src = 'https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg';
-  logo.alt = 'Timeless Art Gallery Logo';
-  logo.className = 'brand-logo';
-  header.insertBefore(logo, header.firstChild);
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('class', 'brand-logo');
+  svg.setAttribute('viewBox', '0 0 100 90');
+  svg.setAttribute('width', '80');
+  svg.setAttribute('height', '80');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '3.5');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Timeless Art Gallery');
+  svg.innerHTML = '<rect x="15" y="4" width="70" height="56" rx="4"/><line x1="10" y1="52" x2="90" y2="52"/><line x1="50" y1="60" x2="15" y2="88"/><line x1="50" y1="60" x2="85" y2="88"/><line x1="50" y1="60" x2="50" y2="88"/><line x1="28" y1="76" x2="72" y2="76"/>';
+  header.insertBefore(svg, header.firstChild);
 }
 
-document.title = `${meta.name} Album - Timeless Art Gallery`;
+document.title = meta.name + ' Album - Timeless Art Gallery';
 document.getElementById('pageTitle').textContent = meta.name;
-document.getElementById('pageSubtitle').textContent = `Explore the ${meta.name} album with curated works and visual studies.`;
-document.getElementById('albumTitle').textContent = `${meta.name} Album`;
-document.getElementById('albumMeta').textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight}`;
+document.getElementById('pageSubtitle').textContent = 'Explore the ' + meta.name + ' album with curated works and visual studies.';
+document.getElementById('albumTitle').textContent = meta.name + ' Album';
+document.getElementById('albumMeta').textContent = 'Era: ' + meta.era + ' | Region: ' + meta.region + ' | Highlight: ' + meta.highlight;
 
 const grid = document.getElementById('albumGrid');
 
-// Build an Unsplash Source URL (no API key) for images matching a query
-const buildUnsplashUrl = (query, width = 480, height = 320, seed = 0) => {
-  const q = (query || 'art').split(/\s+/).slice(0,3).join(' ');
-  return `https://source.unsplash.com/${width}x${height}/?${encodeURIComponent(q)}&sig=${seed}`;
-};
+// ── Wikimedia Commons API ─────────────────────────────────────────────────────
+// Step 1: list=search → get file titles (namespace 6 = File:)
+// Step 2: prop=imageinfo on those titles → get direct image URLs
+// origin=* ensures CORS works from localhost AND Azure with no errors
+const fetchWikimediaImages = async function(queries, categoryName, target) {
+  var collected = [];
+  var seenTitles = new Set();
 
-// Generate placeholder image items using Unsplash Source (fast, no API) and Picsum fallback
-const fetchAtLeastImages = async (metaConfig, target = 100, initialCollected = []) => {
-  const collected = [...initialCollected];
-  const seen = new Set(collected.map(i => i.title));
-  const queries = Array.isArray(metaConfig.search) && metaConfig.search.length ? metaConfig.search : ['art'];
-
-  let i = 0;
-  while (collected.length < target) {
-    const q = queries[i % queries.length] || 'art';
-    const title = `${metaConfig.name} - ${q} ${collected.length + 1}`;
-    if (seen.has(title)) { i += 1; continue; }
-    seen.add(title);
-    const img = buildUnsplashUrl(q, 480, 320, Math.floor(Math.random() * 1000000));
-    collected.push({ title, img, description: `${metaConfig.name} artwork` });
-    i += 1;
-  }
-
-  return collected.slice(0, target);
-};
-
-// Art Institute of Chicago — free, no API key, CORS-friendly, real museum images
-const fetchAICImages = async (queries, categoryName, target = 100) => {
-  const collected = [];
-  const seen = new Set();
-  for (const q of queries) {
+  for (var qi = 0; qi < queries.length; qi++) {
     if (collected.length >= target) break;
+    var q = queries[qi];
+
     try {
-      const url = `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(q)}&fields=id,title,artist_display,date_display,image_id&limit=50`;
-      const resp = await fetch(url);
-      if (!resp.ok) continue;
-      const data = await resp.json();
-      for (const art of (data.data || [])) {
-        if (collected.length >= target) break;
-        if (!art.image_id || seen.has(art.id)) continue;
-        seen.add(art.id);
-        const imgUrl = `https://www.artic.edu/iiif/2/${art.image_id}/full/480,/0/default.jpg`;
-        const desc = [art.artist_display, art.date_display].filter(Boolean).join(' · ');
+      // Step 1: search for image file titles
+      var searchParams = new URLSearchParams({
+        action:      'query',
+        list:        'search',
+        srsearch:    q + ' painting',
+        srnamespace: '6',
+        srlimit:     '50',
+        format:      'json',
+        origin:      '*'
+      });
+      console.log('[WikiAPI] search: "' + q + '"');
+      var searchRes = await fetch(WIKI_API + '?' + searchParams.toString());
+      if (!searchRes.ok) { console.warn('[WikiAPI] search HTTP ' + searchRes.status + ' for "' + q + '"'); continue; }
+      var searchData = await searchRes.json();
+      var hits = (searchData.query && searchData.query.search) || [];
+
+      var newTitles = hits
+        .map(function(h) { return h.title; })
+        .filter(function(t) { return t && !seenTitles.has(t); });
+
+      console.log('[WikiAPI] "' + q + '" → ' + hits.length + ' hits, ' + newTitles.length + ' new titles');
+      if (!newTitles.length) continue;
+      newTitles.forEach(function(t) { seenTitles.add(t); });
+
+      // Step 2: batch imageinfo for all titles at once
+      var infoParams = new URLSearchParams({
+        action:   'query',
+        titles:   newTitles.join('|'),
+        prop:     'imageinfo',
+        iiprop:   'url',
+        iiurlwidth: '480',
+        format:   'json',
+        origin:   '*'
+      });
+      var infoRes = await fetch(WIKI_API + '?' + infoParams.toString());
+      if (!infoRes.ok) { console.warn('[WikiAPI] imageinfo HTTP ' + infoRes.status); continue; }
+      var infoData = await infoRes.json();
+      var pages = Object.values((infoData.query && infoData.query.pages) || {});
+
+      for (var pi = 0; pi < pages.length && collected.length < target; pi++) {
+        var page = pages[pi];
+        if (!page.imageinfo || !page.imageinfo[0]) continue;
+        var info = page.imageinfo[0];
+        var imgUrl = info.thumburl || info.url;
+        if (!imgUrl) continue;
+        if (!/\.(jpe?g|png|gif|webp)/i.test(imgUrl)) continue;
+        var title = (page.title || '')
+          .replace(/^File:/i, '')
+          .replace(/\.\w{2,5}$/, '')
+          .replace(/_/g, ' ');
         collected.push({
-          title: art.title || `${categoryName} artwork`,
+          title: title || categoryName,
           img: imgUrl,
-          description: desc ? `${categoryName} — ${desc}` : `${categoryName} artwork`
+          artist: '',
+          date: '',
+          department: 'Wikimedia Commons'
         });
       }
-    } catch (e) { /* continue */ }
-  }
-  return collected;
-};
-
-// Cleveland Museum of Art — free, no API key, CORS-friendly
-const fetchClevelandImages = async (queries, categoryName, target = 100) => {
-  const collected = [];
-  const seen = new Set();
-  for (const q of queries) {
-    if (collected.length >= target) break;
-    try {
-      const url = `https://openaccess-api.clevelandart.org/api/artworks/?q=${encodeURIComponent(q)}&has_image=1&limit=100`;
-      const resp = await fetch(url);
-      if (!resp.ok) continue;
-      const data = await resp.json();
-      for (const art of (data.data || [])) {
-        if (collected.length >= target) break;
-        if (!art.images?.web?.url || seen.has(art.id)) continue;
-        seen.add(art.id);
-        const desc = [art.creators?.[0]?.description, art.creation_date].filter(Boolean).join(' · ');
-        collected.push({
-          title: art.title || `${categoryName} artwork`,
-          img: art.images.web.url,
-          description: desc ? `${categoryName} — ${desc}` : `${categoryName} artwork`
-        });
-      }
-    } catch (e) { /* continue */ }
-  }
-  return collected;
-};
-
-// Fetch museum images using AIC first, then Cleveland to supplement
-const fetchMuseumImages = async (queries, categoryName, target = 100) => {
-  const aicItems = await fetchAICImages(queries, categoryName, target);
-  if (aicItems.length >= target) return aicItems;
-  const remaining = target - aicItems.length;
-  const clevelandItems = await fetchClevelandImages(queries, categoryName, remaining);
-  const seenTitles = new Set(aicItems.map(i => i.title));
-  const combined = [...aicItems, ...clevelandItems.filter(i => !seenTitles.has(i.title))];
-  return combined.slice(0, target);
-};
-
-// Simple localStorage cache with TTL (ms)
-const CACHE_TTL = 1000 * 60 * 60 * 24; // 24 hours
-const CACHE_VERSION = 'v4';
-const cacheKey = (slug) => `cat_cache_${CACHE_VERSION}_${slug}`;
-const getCachedItems = (slug) => {
-  try {
-    const raw = localStorage.getItem(cacheKey(slug));
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (Date.now() - (parsed.t || 0) > CACHE_TTL) {
-      localStorage.removeItem(cacheKey(slug));
-      return null;
+      console.log('[WikiAPI] collected ' + collected.length + '/' + target + ' after "' + q + '"');
+    } catch (e) {
+      console.error('[WikiAPI] error for "' + q + '":', e.message || e);
     }
+  }
+
+  return collected;
+};
+
+// ── Cache helpers ─────────────────────────────────────────────────────────────
+const CACHE_TTL     = 1000 * 60 * 60 * 24;
+const CACHE_VERSION = 'v9';
+const cacheKey      = function(s) { return 'cat_cache_' + CACHE_VERSION + '_' + s; };
+
+const getCachedItems = function(s) {
+  try {
+    var raw = localStorage.getItem(cacheKey(s));
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    if (Date.now() - (parsed.t || 0) > CACHE_TTL) { localStorage.removeItem(cacheKey(s)); return null; }
     return parsed.items || null;
   } catch (_) { return null; }
 };
-const setCachedItems = (slug, items) => {
-  try {
-    localStorage.setItem(cacheKey(slug), JSON.stringify({ t: Date.now(), items }));
-  } catch (_) { /* ignore storage errors */ }
+
+const setCachedItems = function(s, items) {
+  try { localStorage.setItem(cacheKey(s), JSON.stringify({ t: Date.now(), items: items })); } catch (_) {}
 };
 
-const renderAlbumItems = (items, categoryName) => {
-  items.forEach((item, i) => {
-    const card = document.createElement('article');
+// ── Render cards ──────────────────────────────────────────────────────────────
+const renderAlbumItems = function(items, categoryName) {
+  items.forEach(function(item, i) {
+    var card = document.createElement('article');
     card.className = 'album-item';
-    const label = item.title || `${categoryName} artwork ${i + 1}`;
-    const desc = item.description.length > 110 ? `${item.description.slice(0, 107)}...` : item.description;
+    var label = item.title || (categoryName + ' artwork ' + (i + 1));
+    var parts = [item.artist, item.date, item.department].filter(Boolean);
+    var desc = parts.join(' · ');
+    var descTrunc = desc.length > 110 ? desc.slice(0, 107) + '...' : desc;
 
-    card.innerHTML = `
-      <img src="${item.img}" alt="${label}" loading="lazy" referrerpolicy="no-referrer">
-      <div class="album-info">
-        <h3>${label}</h3>
-        <p>${desc}</p>
-      </div>
-    `;
+    card.innerHTML =
+      '<img src="' + item.img + '" alt="' + label.replace(/"/g, '&quot;') + '" loading="lazy">' +
+      '<div class="album-info"><h3>' + label + '</h3><p>' + (descTrunc || '') + '</p></div>';
 
     grid.appendChild(card);
 
-    const img = card.querySelector('img');
-    img.crossOrigin = 'anonymous';
-    img.referrerPolicy = 'no-referrer';
-
-    // robust fallback: try Picsum as last resort if Unsplash fails
-    img.addEventListener('error', () => {
-      if (!img.dataset.triedPicsum) {
-        img.dataset.triedPicsum = '1';
-        img.src = `https://picsum.photos/480/320?random=${Math.floor(Math.random() * 100000)}`;
-        return;
-      }
-    });
+    var img = card.querySelector('img');
+    function onImgError() {
+      img.removeEventListener('error', onImgError);
+      img.src = 'https://picsum.photos/480/320?random=' + Math.floor(Math.random() * 100000);
+    }
+    img.addEventListener('error', onImgError);
   });
 };
 
-const init = async () => {
-  const albumMetaEl = document.getElementById('albumMeta');
-  albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loading artworks...`;
+// ── Init ──────────────────────────────────────────────────────────────────────
+const init = async function() {
+  var albumMetaEl = document.getElementById('albumMeta');
+  albumMetaEl.textContent = 'Era: ' + meta.era + ' | Region: ' + meta.region + ' | Highlight: ' + meta.highlight + ' | Loading artworks...';
 
-  // Try cache first
-  const cached = getCachedItems(slug);
+  var cached = getCachedItems(slug);
   if (cached && Array.isArray(cached) && cached.length) {
     renderAlbumItems(cached, meta.name);
-    albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${cached.length} artworks (cached)`;
-    (async () => {
-      if (meta.museumQueries) {
-        const full = await fetchMuseumImages(meta.museumQueries, meta.name, 100);
-        if (full.length > 0) {
-          grid.innerHTML = '';
-          renderAlbumItems(full, meta.name);
-          setCachedItems(slug, full);
-          albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${full.length} artworks`;
-        }
-      } else {
-        const full = await fetchAtLeastImages(meta, 100, cached);
-        if (full.length > cached.length) {
-          renderAlbumItems(full.slice(cached.length), meta.name);
-          setCachedItems(slug, full);
-          albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${full.length} artworks`;
-        }
-      }
-    })();
+    albumMetaEl.textContent = 'Era: ' + meta.era + ' | Region: ' + meta.region + ' | Highlight: ' + meta.highlight + ' | Loaded: ' + cached.length + ' artworks (cached)';
     return;
   }
 
-  // Use museum APIs for categories that define museumQueries
-  if (meta.museumQueries) {
-    const museumItems = await fetchMuseumImages(meta.museumQueries, meta.name, 100);
-    if (museumItems.length > 0) {
-      renderAlbumItems(museumItems, meta.name);
-      setCachedItems(slug, museumItems);
-      albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${museumItems.length} artworks`;
-      return;
-    }
+  var queries = meta.search || ['painting art'];
+  var items = await fetchWikimediaImages(queries, meta.name, 20);
+  console.log('[Init] Wikimedia returned', items.length, 'items');
+
+  if (items.length > 0) {
+    renderAlbumItems(items, meta.name);
+    setCachedItems(slug, items);
+    albumMetaEl.textContent = 'Era: ' + meta.era + ' | Region: ' + meta.region + ' | Highlight: ' + meta.highlight + ' | Loaded: ' + items.length + ' artworks';
+  } else {
+    albumMetaEl.textContent = 'Era: ' + meta.era + ' | Region: ' + meta.region + ' | Highlight: ' + meta.highlight + ' | No artworks found';
+    console.error('[Init] Wikimedia Commons returned 0 results for category:', slug);
   }
-
-  // Fetch an initial small batch to show quickly
-  const initial = await fetchAtLeastImages(meta, 24, []);
-  renderAlbumItems(initial, meta.name);
-  setCachedItems(slug, initial);
-  albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${initial.length} artworks`;
-
-  // Fetch remaining in background and append
-  (async () => {
-    const full = await fetchAtLeastImages(meta, 100, initial);
-    if (full.length > initial.length) {
-      renderAlbumItems(full.slice(initial.length), meta.name);
-      setCachedItems(slug, full);
-      albumMetaEl.textContent = `Era: ${meta.era} | Region: ${meta.region} | Highlight: ${meta.highlight} | Loaded: ${full.length} artworks`;
-    }
-  })();
 };
 
 init();

@@ -77,7 +77,7 @@
     nav a {
       color: #f6f3ef;
       text-decoration: none;
-      padding: 10px 18px;
+      font-size: 0.9rem; padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       transition: background 0.2s ease, border 0.2s ease;
@@ -145,7 +145,11 @@
       background: var(--surface);
       font-size: 0.85rem;
       color: var(--ink-soft);
+      cursor: pointer;
+      transition: background .15s, border .15s;
+      font-family: 'Space Grotesk', sans-serif;
     }
+    .chip:hover { background: var(--surface-alt); }
     .chip.active {
       background: var(--accent);
       color: #fff;
@@ -222,13 +226,33 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
     }
+  
+    /* ── Auth widget ── */
+    .auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
+    .auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
+    .auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
+    .auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
+    .auth-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f4b942, #e8a82e); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #1c1c22; flex-shrink: 0; }
+    .auth-name { font-size: 0.84rem; font-weight: 600; color: #f6f3ef; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .auth-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: #1a2333; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px; min-width: 160px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .auth-dropdown.open { display: block; }
+    .auth-dd-item { display: block; width: 100%; padding: 10px 14px; border-radius: 8px; background: none; border: none; color: #f6f3ef; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; text-decoration: none; transition: background .15s; }
+    .auth-dd-item:hover { background: rgba(255,255,255,0.07); }
+    .auth-dd-item.danger { color: #f87171; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" />
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Timeless Art Gallery">
+        <rect x="15" y="4" width="70" height="56" rx="4"/>
+        <line x1="10" y1="52" x2="90" y2="52"/>
+        <line x1="50" y1="60" x2="15" y2="88"/>
+        <line x1="50" y1="60" x2="85" y2="88"/>
+        <line x1="50" y1="60" x2="50" y2="88"/>
+        <line x1="28" y1="76" x2="72" y2="76"/>
+      </svg>
       <h1>Timeless Art Gallery</h1>
       <nav>
         <a href="index.html">Home</a>
@@ -239,6 +263,18 @@
         <a href="artworks.html">My Uploads</a>
         <a href="upload.html">Upload</a>
       </nav>
+    </div>
+    <div id="authWidget" class="auth-widget">
+      <a href="login.html" id="wSignIn" class="auth-signin-btn">Sign In</a>
+      <div id="wUser" class="auth-user-pill" onclick="toggleAuthDd(event)">
+        <div id="wAvatar" class="auth-avatar">?</div>
+        <span id="wName" class="auth-name"></span>
+        <div id="wDropdown" class="auth-dropdown">
+          <a href="upload.html" class="auth-dd-item">Upload Art</a>
+          <a href="artworks.html" class="auth-dd-item">My Uploads</a>
+          <button class="auth-dd-item danger" onclick="authSignOut()">Sign Out</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -273,67 +309,113 @@
 
   <script>
     const categories = [
-      { slug: 'abstract-expressionism', query: 'abstract painting brushstrokes', name: 'Abstract Expressionism', description: 'Bold emotional painting focused on gesture, energy, and personal expression.', artworks: '1,240', artists: '340+' },
-      { slug: 'contemporary-art', query: 'contemporary art gallery installation', name: 'Contemporary Art', description: 'Current-era works reflecting modern culture, identity, and society.', artworks: '2,150', artists: '520+' },
-      { slug: 'renaissance-art', query: 'renaissance painting classical portrait', name: 'Renaissance Art', description: 'Masterpieces of balance, perspective, and humanist beauty from Europe.', artworks: '980', artists: '210+' },
-      { slug: 'impressionism', query: 'impressionist painting light landscape', name: 'Impressionism', description: 'Light-driven scenes with visible brushwork and atmospheric color.', artworks: '1,460', artists: '280+' },
-      { slug: 'realism', query: 'realist painting people daily life', name: 'Realism', description: 'Truthful depictions of daily life and social realities.', artworks: '1,020', artists: '230+' },
-      { slug: 'surrealism', query: 'surreal painting dream scene', name: 'Surrealism', description: 'Dreamlike imagery blending imagination, symbolism, and the subconscious.', artworks: '1,180', artists: '260+' },
-      { slug: 'cubism', query: 'cubist painting geometric portrait', name: 'Cubism', description: 'Fragmented forms and multiple viewpoints in one composition.', artworks: '760', artists: '160+' },
-      { slug: 'baroque', query: 'baroque painting dramatic light', name: 'Baroque', description: 'Dramatic lighting, movement, and grand storytelling in art.', artworks: '890', artists: '190+' },
-      { slug: 'romanticism', query: 'romanticism art landscape dramatic sky', name: 'Romanticism', description: 'Emotion-driven scenes of nature, heroism, and the sublime.', artworks: '840', artists: '170+' },
-      { slug: 'neoclassicism', query: 'neoclassical painting historical scene', name: 'Neoclassicism', description: 'Classical harmony and order inspired by Greek and Roman ideals.', artworks: '680', artists: '140+' },
-      { slug: 'pop-art', query: 'pop art colorful graphic', name: 'Pop Art', description: 'Bold graphics and popular culture transformed into iconic art.', artworks: '930', artists: '190+' },
-      { slug: 'minimalism', query: 'minimalist art geometric clean', name: 'Minimalism', description: 'Essential shapes and color reduced to core visual language.', artworks: '710', artists: '150+' },
-      { slug: 'symbolism', query: 'symbolist painting mystical scene', name: 'Symbolism', description: 'Poetic imagery and hidden meaning beyond literal representation.', artworks: '620', artists: '130+' },
-      { slug: 'fauvism', query: 'fauvism painting vibrant color', name: 'Fauvism', description: 'Explosive color and expressive brushwork over realism.', artworks: '440', artists: '90+' },
-      { slug: 'dada', query: 'dada collage avant garde art', name: 'Dada', description: 'Anti-traditional art challenging meaning, logic, and convention.', artworks: '380', artists: '85+' },
-      { slug: 'art-nouveau', query: 'art nouveau decorative floral design', name: 'Art Nouveau', description: 'Decorative curves, floral motifs, and elegant organic lines.', artworks: '560', artists: '115+' },
-      { slug: 'art-deco', query: 'art deco geometric architecture style', name: 'Art Deco', description: 'Geometric luxury style blending craft, glamour, and modernity.', artworks: '520', artists: '110+' },
-      { slug: 'ukiyo-e', query: 'ukiyo-e japanese woodblock print', name: 'Ukiyo-e', description: 'Japanese woodblock prints of landscapes, theater, and daily life.', artworks: '760', artists: '145+' },
-      { slug: 'byzantine-art', query: 'byzantine mosaic icon art', name: 'Byzantine Art', description: 'Sacred icons, mosaics, and spiritual visual traditions.', artworks: '430', artists: '95+' },
-      { slug: 'islamic-art', query: 'islamic geometric art calligraphy pattern', name: 'Islamic Art', description: 'Geometric design, calligraphy, and ornamental abstraction.', artworks: '980', artists: '220+' },
-      { slug: 'bengal-art-heritage', query: 'bengal folk art patachitra terracotta', name: 'Bengal Art and Heritage', description: 'Historic and folk traditions from Bengal, including patachitra, terracotta, and temple art.', artworks: '860', artists: '240+' },
-      { slug: 'mughal-empire-art', query: 'mughal miniature painting architecture', name: 'Mughal Empire Art', description: 'Imperial miniature painting, calligraphy, and architecture from the Mughal era.', artworks: '740', artists: '170+' },
-      { slug: 'african-art', query: 'african tribal art sculpture mask', name: 'African Art', description: 'Diverse regional forms, symbolism, masks, and sculpture traditions.', artworks: '1,120', artists: '300+' },
-      { slug: 'street-art', query: 'street art mural graffiti wall', name: 'Street Art', description: 'Urban murals, graffiti, and public creative expression.', artworks: '1,300', artists: '410+' },
-      { slug: 'digital-art', query: 'digital art neon concept illustration', name: 'Digital Art', description: 'Art created with software, tablets, and modern creative tools.', artworks: '3,420', artists: '780+' },
-      { slug: 'photography', query: 'art photography gallery portrait', name: 'Photography', description: 'Visual storytelling through composition, light, and timing.', artworks: '2,210', artists: '620+' },
-      { slug: 'sculpture', query: 'sculpture marble bronze art', name: 'Sculpture', description: 'Three-dimensional art in stone, bronze, wood, and mixed media.', artworks: '1,570', artists: '360+' },
-      { slug: 'landscape-painting', query: 'landscape painting mountains river', name: 'Landscape Painting', description: 'Natural scenes that capture place, weather, and mood.', artworks: '1,840', artists: '430+' },
-      { slug: 'portraiture', query: 'portrait painting face classical', name: 'Portraiture', description: 'Art focused on identity, personality, and human presence.', artworks: '1,690', artists: '390+' },
-      { slug: 'still-life', query: 'still life painting fruit vase', name: 'Still Life', description: 'Composed objects studying form, light, and symbolic meaning.', artworks: '1,210', artists: '280+' },
-      { slug: 'conceptual-art', query: 'conceptual art installation idea', name: 'Conceptual Art', description: 'Idea-first art where concept matters more than physical object.', artworks: '870', artists: '210+' },
-      { slug: 'modern-abstract', query: 'modern abstract colorful painting', name: 'Modern Abstract', description: 'Contemporary abstraction with dynamic color and composition.', artworks: '1,540', artists: '360+' }
+      { slug: 'abstract-expressionism', filter: 'Modern',      query: 'abstract painting brushstrokes', name: 'Abstract Expressionism', description: 'Bold emotional painting focused on gesture, energy, and personal expression.', artworks: '1,240', artists: '340+' },
+      { slug: 'contemporary-art',       filter: 'Modern',      query: 'contemporary art gallery installation', name: 'Contemporary Art', description: 'Current-era works reflecting modern culture, identity, and society.', artworks: '2,150', artists: '520+' },
+      { slug: 'renaissance-art',        filter: 'Classical',   query: 'renaissance painting classical portrait', name: 'Renaissance Art', description: 'Masterpieces of balance, perspective, and humanist beauty from Europe.', artworks: '980', artists: '210+' },
+      { slug: 'impressionism',          filter: 'Classical',   query: 'impressionist painting light landscape', name: 'Impressionism', description: 'Light-driven scenes with visible brushwork and atmospheric color.', artworks: '1,460', artists: '280+' },
+      { slug: 'realism',                filter: 'Classical',   query: 'realist painting people daily life', name: 'Realism', description: 'Truthful depictions of daily life and social realities.', artworks: '1,020', artists: '230+' },
+      { slug: 'surrealism',             filter: 'Modern',      query: 'surreal painting dream scene', name: 'Surrealism', description: 'Dreamlike imagery blending imagination, symbolism, and the subconscious.', artworks: '1,180', artists: '260+' },
+      { slug: 'cubism',                 filter: 'Modern',      query: 'cubist painting geometric portrait', name: 'Cubism', description: 'Fragmented forms and multiple viewpoints in one composition.', artworks: '760', artists: '160+' },
+      { slug: 'baroque',                filter: 'Classical',   query: 'baroque painting dramatic light', name: 'Baroque', description: 'Dramatic lighting, movement, and grand storytelling in art.', artworks: '890', artists: '190+' },
+      { slug: 'romanticism',            filter: 'Classical',   query: 'romanticism art landscape dramatic sky', name: 'Romanticism', description: 'Emotion-driven scenes of nature, heroism, and the sublime.', artworks: '840', artists: '170+' },
+      { slug: 'neoclassicism',          filter: 'Classical',   query: 'neoclassical painting historical scene', name: 'Neoclassicism', description: 'Classical harmony and order inspired by Greek and Roman ideals.', artworks: '680', artists: '140+' },
+      { slug: 'pop-art',                filter: 'Modern',      query: 'pop art colorful graphic', name: 'Pop Art', description: 'Bold graphics and popular culture transformed into iconic art.', artworks: '930', artists: '190+' },
+      { slug: 'minimalism',             filter: 'Modern',      query: 'minimalist art geometric clean', name: 'Minimalism', description: 'Essential shapes and color reduced to core visual language.', artworks: '710', artists: '150+' },
+      { slug: 'symbolism',              filter: 'Classical',   query: 'symbolist painting mystical scene', name: 'Symbolism', description: 'Poetic imagery and hidden meaning beyond literal representation.', artworks: '620', artists: '130+' },
+      { slug: 'fauvism',                filter: 'Modern',      query: 'fauvism painting vibrant color', name: 'Fauvism', description: 'Explosive color and expressive brushwork over realism.', artworks: '440', artists: '90+' },
+      { slug: 'dada',                   filter: 'Modern',      query: 'dada collage avant garde art', name: 'Dada', description: 'Anti-traditional art challenging meaning, logic, and convention.', artworks: '380', artists: '85+' },
+      { slug: 'art-nouveau',            filter: 'Classical',   query: 'art nouveau decorative floral design', name: 'Art Nouveau', description: 'Decorative curves, floral motifs, and elegant organic lines.', artworks: '560', artists: '115+' },
+      { slug: 'art-deco',               filter: 'Modern',      query: 'art deco geometric architecture style', name: 'Art Deco', description: 'Geometric luxury style blending craft, glamour, and modernity.', artworks: '520', artists: '110+' },
+      { slug: 'ukiyo-e',                filter: 'Regional',    query: 'ukiyo-e japanese woodblock print', name: 'Ukiyo-e', description: 'Japanese woodblock prints of landscapes, theater, and daily life.', artworks: '760', artists: '145+' },
+      { slug: 'byzantine-art',          filter: 'Regional',    query: 'byzantine mosaic icon art', name: 'Byzantine Art', description: 'Sacred icons, mosaics, and spiritual visual traditions.', artworks: '430', artists: '95+' },
+      { slug: 'islamic-art',            filter: 'Regional',    query: 'islamic geometric art calligraphy pattern', name: 'Islamic Art', description: 'Geometric design, calligraphy, and ornamental abstraction.', artworks: '980', artists: '220+' },
+      { slug: 'bengal-art-heritage',    filter: 'Regional',    query: 'bengal folk art patachitra terracotta', name: 'Bengal Art and Heritage', description: 'Historic and folk traditions from Bengal, including patachitra, terracotta, and temple art.', artworks: '860', artists: '240+' },
+      { slug: 'mughal-empire-art',      filter: 'Regional',    query: 'mughal miniature painting architecture', name: 'Mughal Empire Art', description: 'Imperial miniature painting, calligraphy, and architecture from the Mughal era.', artworks: '740', artists: '170+' },
+      { slug: 'african-art',            filter: 'Regional',    query: 'african tribal art sculpture mask', name: 'African Art', description: 'Diverse regional forms, symbolism, masks, and sculpture traditions.', artworks: '1,120', artists: '300+' },
+      { slug: 'street-art',             filter: 'Modern',      query: 'street art mural graffiti wall', name: 'Street Art', description: 'Urban murals, graffiti, and public creative expression.', artworks: '1,300', artists: '410+' },
+      { slug: 'digital-art',            filter: 'Digital',     query: 'digital art neon concept illustration', name: 'Digital Art', description: 'Art created with software, tablets, and modern creative tools.', artworks: '3,420', artists: '780+' },
+      { slug: 'photography',            filter: 'Photography', query: 'art photography gallery portrait', name: 'Photography', description: 'Visual storytelling through composition, light, and timing.', artworks: '2,210', artists: '620+' },
+      { slug: 'sculpture',              filter: 'Classical',   query: 'sculpture marble bronze art', name: 'Sculpture', description: 'Three-dimensional art in stone, bronze, wood, and mixed media.', artworks: '1,570', artists: '360+' },
+      { slug: 'landscape-painting',     filter: 'Classical',   query: 'landscape painting mountains river', name: 'Landscape Painting', description: 'Natural scenes that capture place, weather, and mood.', artworks: '1,840', artists: '430+' },
+      { slug: 'portraiture',            filter: 'Classical',   query: 'portrait painting face classical', name: 'Portraiture', description: 'Art focused on identity, personality, and human presence.', artworks: '1,690', artists: '390+' },
+      { slug: 'still-life',             filter: 'Classical',   query: 'still life painting fruit vase', name: 'Still Life', description: 'Composed objects studying form, light, and symbolic meaning.', artworks: '1,210', artists: '280+' },
+      { slug: 'conceptual-art',         filter: 'Digital',     query: 'conceptual art installation idea', name: 'Conceptual Art', description: 'Idea-first art where concept matters more than physical object.', artworks: '870', artists: '210+' },
+      { slug: 'modern-abstract',        filter: 'Digital',     query: 'modern abstract colorful painting', name: 'Modern Abstract', description: 'Contemporary abstraction with dynamic color and composition.', artworks: '1,540', artists: '360+' }
     ];
 
     const grid = document.getElementById('categoryGrid');
 
-    // Build an Unsplash Source URL for a category using keywords (no API key required).
-    // Use space-separated tags to avoid repeated identical images and include a seed.
-    const buildUnsplashUrl = (tags, seed) => {
-      const q = (tags || '').replace(/,/g, ' ').trim();
-      return `https://source.unsplash.com/800x500/?${encodeURIComponent(q)}&sig=${seed}`;
-    };
+    const WIKI_API = 'https://commons.wikimedia.org/w/api.php';
+    const PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+    // Two-step Wikimedia fetch: list=search → titles, then imageinfo → URL
+    // origin=* means CORS works from localhost AND Azure with no errors
+    async function fetchWikiImage(query) {
+      try {
+        // Step 1: search for image file titles in namespace 6 (File:)
+        const searchParams = new URLSearchParams({
+          action:      'query',
+          list:        'search',
+          srsearch:    query + ' painting',
+          srnamespace: '6',
+          srlimit:     '20',
+          format:      'json',
+          origin:      '*'
+        });
+        const searchRes = await fetch(WIKI_API + '?' + searchParams.toString());
+        if (!searchRes.ok) return null;
+        const searchData = await searchRes.json();
+        const hits = (searchData.query && searchData.query.search) || [];
+        if (!hits.length) return null;
+
+        // Take up to 10 titles and batch the imageinfo request
+        const titles = hits.slice(0, 10).map(h => h.title);
+        const infoParams = new URLSearchParams({
+          action:     'query',
+          titles:     titles.join('|'),
+          prop:       'imageinfo',
+          iiprop:     'url',
+          iiurlwidth: '480',
+          format:     'json',
+          origin:     '*'
+        });
+        const infoRes = await fetch(WIKI_API + '?' + infoParams.toString());
+        if (!infoRes.ok) return null;
+        const infoData = await infoRes.json();
+        const pages = Object.values((infoData.query && infoData.query.pages) || {});
+
+        for (const page of pages) {
+          if (!page.imageinfo || !page.imageinfo[0]) continue;
+          const url = page.imageinfo[0].thumburl || page.imageinfo[0].url;
+          if (!url) continue;
+          if (!/\.(jpe?g|png|gif|webp)/i.test(url)) continue;
+          return url;
+        }
+        return null;
+      } catch (_) { return null; }
+    }
+
+    // Filter chip handlers
+    document.querySelectorAll('.chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        var filter = chip.textContent.trim();
+        document.querySelectorAll('.category-card').forEach(function(card) {
+          card.style.display = (filter === 'All' || card.dataset.filter === filter) ? '' : 'none';
+        });
+      });
+    });
 
     categories.forEach((category, index) => {
-      const tags = category.query
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .trim()
-        .split(/\s+/)
-        .slice(0, 3)
-        .join(',');
-      const fallbackUrl = `https://picsum.photos/800/500?random=${index + 101}`;
-      // Use a generic Picsum image as the final fallback to avoid the same Mona Lisa thumbnail everywhere
-      const finalFallback = `https://picsum.photos/800/500?random=${index + 9999}`;
       const card = document.createElement('a');
       card.className = 'category-card';
       card.href = `categories/${category.slug}.html`;
+      card.dataset.filter = category.filter;
 
       card.innerHTML = `
         <div class="category-header">
-          <img src="${fallbackUrl}" alt="${category.name} category image" loading="lazy">
+          <img src="${PLACEHOLDER}" alt="${category.name} category image" loading="lazy" style="background:#f7f4ef">
         </div>
         <div class="category-body">
           <h3>${category.name}</h3>
@@ -354,25 +436,47 @@
       grid.appendChild(card);
 
       const img = card.querySelector('img');
-      // two-step fallback: try finalFallback then Picsum (if Unsplash fails)
-      img.addEventListener('error', () => {
-        if (!img.dataset.triedFinal) {
-          img.dataset.triedFinal = '1';
-          img.src = finalFallback;
-          return;
-        }
-        if (!img.dataset.triedPicsum) {
-          img.dataset.triedPicsum = '1';
-          img.src = `https://picsum.photos/800/500?random=${index + 201}`;
-          return;
-        }
+      fetchWikiImage(category.query).then(url => {
+        img.src = url || `https://picsum.photos/800/500?random=${index + 101}`;
       });
-
-      // Prefer Unsplash for category visuals; fallbacks will trigger if needed
-      const unsplashUrl = buildUnsplashUrl(tags, index + 1 + Math.floor(Math.random() * 1000));
-      img.src = unsplashUrl;
     });
   </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+        authDomain: "timeless-art-gallery.firebaseapp.com",
+        projectId: "timeless-art-gallery",
+        storageBucket: "timeless-art-gallery.firebasestorage.app",
+        messagingSenderId: "681338547049",
+        appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+      });
+    }
+    function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function() { const dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+    function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = 'index.html'; }); }
+    firebase.auth().onAuthStateChanged(function(user) {
+      const si = document.getElementById('wSignIn');
+      const up = document.getElementById('wUser');
+      if (!si || !up) return;
+      if (user) {
+        si.style.display = 'none';
+        up.style.display = 'flex';
+        const n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      } else {
+        si.style.display = 'flex';
+        up.style.display = 'none';
+        si.href = 'login.html?from=' + encodeURIComponent(location.href);
+      }
+    });
+  </script>
+
+
 
 </body>
 </html>

@@ -3,62 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artworks — Timeless Art Gallery</title>
+  <title>My Uploads — Timeless Art Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-    :root {
-      --ink: #1c1c22;
-      --ink-soft: #3c3c46;
-      --accent: #0f4c5c;
-      --accent-bright: #f4b942;
-      --surface: #ffffff;
-      --surface-alt: #f7f4ef;
-      --line: #e4dfd6;
-      --shadow: 0 24px 60px rgba(18, 24, 40, 0.12);
-      --shadow-soft: 0 10px 30px rgba(18, 24, 40, 0.08);
-    }
+    /* AUTH WIDGET — inline copy so @import ordering cannot suppress styles.css rules */
+    .auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
+    .auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
+    .auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
+    .auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
+    .auth-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f4b942, #e8a82e); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #1c1c22; flex-shrink: 0; }
+    .auth-name { font-size: 0.84rem; font-weight: 600; color: #f6f3ef; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .auth-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: #1a2333; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px; min-width: 160px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .auth-dropdown.open { display: block; }
+    .auth-dd-item { display: block; width: 100%; padding: 10px 14px; border-radius: 8px; background: none; border: none; color: #f6f3ef; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; text-decoration: none; transition: background .15s; }
+    .auth-dd-item:hover { background: rgba(255,255,255,0.07); }
+    .auth-dd-item.danger { color: #f87171; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: clamp(16px, 1.2vw + 14px, 19px); }
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 12%, rgba(244, 185, 66, 0.18), transparent 40%),
-        radial-gradient(circle at 88% 10%, rgba(15, 76, 92, 0.16), transparent 42%),
-        linear-gradient(135deg, #fbf9f6 0%, #f2efe9 100%);
-      min-height: 100vh;
-    }
-
-    header {
-      background: linear-gradient(135deg, #0e121b 0%, #1d2736 100%);
-      color: #f6f3ef;
-      padding: clamp(28px, 5vw, 80px) 24px clamp(18px, 4vw, 64px);
-      position: relative; overflow: hidden;
-    }
-    header::after {
-      content: ''; position: absolute; right: -140px; top: -120px;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(244,185,66,0.24), transparent 65%);
-      border-radius: 50%;
-    }
-    .brand { display: flex; flex-direction: column; align-items: center; gap: 18px; position: relative; z-index: 1; }
-    .brand img { width: clamp(160px, 24vw, 240px); height: auto; filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
-    .brand h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: 1.5px; }
-    nav { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-    nav a { color: #f6f3ef; text-decoration: none; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); transition: background .2s, border .2s; font-weight: 500; }
-    nav a:hover { background: rgba(244,185,66,0.2); border-color: rgba(244,185,66,0.4); }
+    nav { justify-content: center; }
 
     .page-header {
       max-width: 1200px;
       margin: clamp(32px, 6vw, 60px) auto 0;
       padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 16px;
     }
     .page-header h2 {
       font-family: 'Playfair Display', serif;
@@ -82,18 +52,15 @@
     }
     .loading .spinner {
       width: 40px; height: 40px;
-      border: 3px solid var(--line);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      border: 3px solid var(--line); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.8s linear infinite;
       margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .empty {
       text-align: center; padding: 60px 20px;
-      background: var(--surface); border-radius: 22px;
-      border: 1px solid var(--line);
+      background: var(--surface); border-radius: 22px; border: 1px solid var(--line);
     }
     .empty h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 10px; }
     .empty p { color: var(--ink-soft); margin-bottom: 20px; }
@@ -103,20 +70,14 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 22px;
     }
-
     .artwork-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 20px; overflow: hidden;
       box-shadow: var(--shadow-soft);
       transition: transform .2s, box-shadow .2s;
     }
     .artwork-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .artwork-card img {
-      width: 100%; height: 220px;
-      object-fit: cover; display: block;
-    }
+    .artwork-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
     .artwork-info { padding: 16px; display: grid; gap: 6px; }
     .artwork-info .style-tag {
       font-size: 0.75rem; text-transform: uppercase;
@@ -125,9 +86,7 @@
     .artwork-info h3 { font-size: 1.05rem; }
     .artwork-info .artist { color: var(--ink-soft); font-size: 0.9rem; }
     .artwork-info .desc { color: var(--ink-soft); font-size: 0.85rem; margin-top: 4px; }
-    .artwork-actions {
-      display: flex; gap: 8px; margin-top: 10px;
-    }
+    .artwork-actions { display: flex; gap: 8px; margin-top: 10px; }
     .btn-edit, .btn-delete {
       padding: 7px 14px; border-radius: 999px;
       font-size: 0.8rem; font-weight: 600;
@@ -139,7 +98,6 @@
     .btn-delete { background: #fee2e2; color: #b91c1c; }
     .btn-edit:hover, .btn-delete:hover { opacity: 0.8; }
 
-    /* Edit Modal */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.6);
       z-index: 1000; display: none;
@@ -148,12 +106,14 @@
     .modal-overlay.open { display: flex; }
     .modal {
       background: var(--surface); border-radius: 22px;
-      padding: 28px; width: min(500px, 95vw);
-      box-shadow: var(--shadow);
+      padding: 28px; width: min(500px, 95vw); box-shadow: var(--shadow);
     }
     .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 18px; }
     .form-group { display: grid; gap: 6px; margin-bottom: 14px; }
-    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-group label {
+      font-size: 0.8rem; font-weight: 600; color: var(--ink-soft);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
     .form-group input, .form-group textarea {
       padding: 10px 14px; border: 1px solid var(--line);
       border-radius: 12px; font-family: 'Space Grotesk', sans-serif;
@@ -180,30 +140,46 @@
       background: #1f7a3c; color: #fff;
       padding: 12px 24px; border-radius: 999px;
       font-weight: 600; z-index: 2000;
-      opacity: 0; transition: opacity .3s;
-      pointer-events: none;
+      opacity: 0; transition: opacity .3s; pointer-events: none;
     }
     .toast.show { opacity: 1; }
     .toast.error { background: #b91c1c; }
-
-    footer { margin-top: 80px; padding: 32px 20px; text-align: center; color: #d8d3c8; background: #121823; }
   </style>
 </head>
 <body>
 
 <header>
   <div class="brand">
-    <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Logo" />
+    <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Timeless Art Gallery">
+      <rect x="15" y="4" width="70" height="56" rx="4"/>
+      <line x1="10" y1="52" x2="90" y2="52"/>
+      <line x1="50" y1="60" x2="15" y2="88"/>
+      <line x1="50" y1="60" x2="85" y2="88"/>
+      <line x1="50" y1="60" x2="50" y2="88"/>
+      <line x1="28" y1="76" x2="72" y2="76"/>
+    </svg>
     <h1>Timeless Art Gallery</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
-      <a href="artworks.html">My Uploads</a>
       <a href="explore.html">Explore</a>
       <a href="artists.html">Artists</a>
       <a href="information.html">Information</a>
+      <a href="artworks.html">My Uploads</a>
       <a href="upload.html">Upload</a>
     </nav>
+  </div>
+  <div id="authWidget" class="auth-widget">
+    <a href="login.html" id="wSignIn" class="auth-signin-btn">Sign In</a>
+    <div id="wUser" class="auth-user-pill" onclick="toggleAuthDd(event)">
+      <div id="wAvatar" class="auth-avatar">?</div>
+      <span id="wName" class="auth-name"></span>
+      <div id="wDropdown" class="auth-dropdown">
+        <a href="upload.html" class="auth-dd-item">Upload Art</a>
+        <a href="artworks.html" class="auth-dd-item">My Uploads</a>
+        <button class="auth-dd-item danger" onclick="authSignOut()">Sign Out</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -233,18 +209,9 @@
   <div class="modal">
     <h3>Edit Artwork</h3>
     <input type="hidden" id="editId" />
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" id="editTitle" />
-    </div>
-    <div class="form-group">
-      <label>Artist Name</label>
-      <input type="text" id="editArtist" />
-    </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea id="editDesc" rows="3"></textarea>
-    </div>
+    <div class="form-group"><label>Title</label><input type="text" id="editTitle" /></div>
+    <div class="form-group"><label>Artist Name</label><input type="text" id="editArtist" /></div>
+    <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3"></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-save" onclick="saveEdit()">Save Changes</button>
@@ -256,6 +223,10 @@
 
 <footer>© 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke</footer>
 
+
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script>
   // ── Logic App URLs ──
   const READ_URL = 'https://prod-15.francecentral.logic.azure.com:443/workflows/a521cf6e927a49daa715317bfa446201/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=4COwnt_q8COZWM57m2M_XddJcCLALTdbQ8aJlI_kiRo';
@@ -263,18 +234,48 @@
   const DELETE_URL = 'https://prod-00.francecentral.logic.azure.com:443/workflows/d1e86738ed9e496fa1309b26eb40642b/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=kNfCN7k5foXew0mPwSsgGNCubbElcHEtqQXg4KnO9F0';
 
   let artworks = [];
+  let currentUid = null;
+
+  // ── Firebase init + auth guard ──
+  firebase.initializeApp({
+    apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+    authDomain: "timeless-art-gallery.firebaseapp.com",
+    projectId: "timeless-art-gallery",
+    storageBucket: "timeless-art-gallery.firebasestorage.app",
+    messagingSenderId: "681338547049",
+    appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+  });
+
+  function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+  document.addEventListener('click', function() { var dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+  function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = 'index.html'; }); }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    var si = document.getElementById('wSignIn');
+    var up = document.getElementById('wUser');
+    if (user) {
+      currentUid = user.uid;
+      if (si) si.style.display = 'none';
+      if (up) {
+        up.style.display = 'flex';
+        var n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      }
+      loadArtworks();
+    } else {
+      window.location.href = 'login.html?from=' + encodeURIComponent(location.href);
+    }
+  });
 
   // ── Load artworks ──
   async function loadArtworks() {
     try {
       const res = await fetch(READ_URL, { method: 'GET' });
       const data = await res.json();
-      // Cosmos DB returns { value: [...] } or array directly
       artworks = Array.isArray(data) ? data : (data.value || data.Documents || []);
       renderArtworks();
     } catch (err) {
-      // Try to show any cached data
-      console.error('Failed to load:', err);
       showToast('Could not load artworks from Azure', true);
       document.getElementById('loadingState').style.display = 'none';
       document.getElementById('emptyState').style.display = 'block';
@@ -289,70 +290,74 @@
       return;
     }
     grid.style.display = 'grid';
-    grid.innerHTML = artworks.map(art => `
-      <article class="artwork-card">
-        <img src="${art.imageUrl || 'https://picsum.photos/400/300?random=1'}"
-             alt="${art.title || 'Artwork'}"
-             onerror="this.src='https://picsum.photos/400/300?random=2'" />
-        <div class="artwork-info">
-          <span class="style-tag">${art.style || 'Art'}</span>
-          <h3>${art.title || 'Untitled'}</h3>
-          <p class="artist">by ${art.artistName || 'Unknown Artist'}</p>
-          ${art.description ? `<p class="desc">${art.description}</p>` : ''}
-          <div class="artwork-actions">
-            <button class="btn-edit" onclick="openEdit('${art.id}', '${escape(art.title)}', '${escape(art.artistName)}', '${escape(art.description || '')}')">✏️ Edit</button>
-            <button class="btn-delete" onclick="deleteArtwork('${art.id}')">🗑️ Delete</button>
-          </div>
-        </div>
-      </article>
-    `).join('');
+    grid.innerHTML = artworks.map(function(art) {
+      const isOwner = currentUid && art.uid === currentUid;
+      const actions = isOwner
+        ? '<div class="artwork-actions">' +
+          '<button class="btn-edit" data-id="' + art.id + '">✏️ Edit</button>' +
+          '<button class="btn-delete" data-id="' + art.id + '">🗑️ Delete</button>' +
+          '</div>'
+        : '';
+      return '<article class="artwork-card">' +
+        '<img src="' + (art.imageUrl || 'https://picsum.photos/400/300?random=1') + '" ' +
+        'alt="' + (art.title || 'Artwork').replace(/"/g, '&quot;') + '" ' +
+        'onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=\'https://picsum.photos/400/300?random=2\'}" />' +
+        '<div class="artwork-info">' +
+        '<span class="style-tag">' + (art.style || 'Art') + '</span>' +
+        '<h3>' + (art.title || 'Untitled') + '</h3>' +
+        '<p class="artist">by ' + (art.artistName || 'Unknown Artist') + '</p>' +
+        (art.description ? '<p class="desc">' + art.description + '</p>' : '') +
+        actions +
+        '</div></article>';
+    }).join('');
+
+    // Event delegation for edit/delete
+    grid.addEventListener('click', function(e) {
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      var id = btn.dataset.id;
+      if (btn.classList.contains('btn-edit')) openEdit(id);
+      if (btn.classList.contains('btn-delete')) deleteArtwork(id);
+    }, { once: false });
   }
 
   // ── Edit ──
-  function openEdit(id, title, artist, desc) {
-    document.getElementById('editId').value = id;
-    document.getElementById('editTitle').value = unescape(title);
-    document.getElementById('editArtist').value = unescape(artist);
-    document.getElementById('editDesc').value = unescape(desc);
+  function openEdit(id) {
+    var art = artworks.find(function(a) { return a.id === id; });
+    if (!art) return;
+    document.getElementById('editId').value = art.id;
+    document.getElementById('editTitle').value = art.title || '';
+    document.getElementById('editArtist').value = art.artistName || '';
+    document.getElementById('editDesc').value = art.description || '';
     document.getElementById('editModal').classList.add('open');
   }
 
-  function closeModal() {
-    document.getElementById('editModal').classList.remove('open');
-  }
+  function closeModal() { document.getElementById('editModal').classList.remove('open'); }
 
   async function saveEdit() {
     const id = document.getElementById('editId').value;
     const title = document.getElementById('editTitle').value;
     const artistName = document.getElementById('editArtist').value;
     const description = document.getElementById('editDesc').value;
-    const existing = artworks.find(a => a.id === id) || {};
-
+    const existing = artworks.find(function(a) { return a.id === id; }) || {};
     try {
       await fetch(CREATE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id, title, artistName, description,
-          imageUrl: existing.imageUrl || '',
-          style: existing.style || ''
-        })
+        body: JSON.stringify({ id, title, artistName, description,
+          imageUrl: existing.imageUrl || '', style: existing.style || '',
+          uid: existing.uid || currentUid || '' })
       });
       showToast('✅ Artwork updated successfully!');
-      closeModal();
-      setTimeout(loadArtworks, 2000);
-    } catch (err) {
-      showToast('✅ Update submitted!');
-      closeModal();
-      setTimeout(loadArtworks, 2000);
-    }
+    } catch (_) { showToast('✅ Update submitted!'); }
+    closeModal();
+    setTimeout(loadArtworks, 2000);
   }
 
   // ── Delete ──
   async function deleteArtwork(id) {
     if (!confirm('Are you sure you want to delete this artwork?')) return;
-    // Remove from UI immediately
-    artworks = artworks.filter(a => a.id !== id);
+    artworks = artworks.filter(function(a) { return a.id !== id; });
     renderArtworks();
     showToast('🗑️ Deleting from Azure Cosmos DB...');
     try {
@@ -362,25 +367,20 @@
         body: JSON.stringify({ id })
       });
       showToast('✅ Artwork deleted from Cosmos DB!');
-    } catch (err) {
-      showToast('✅ Artwork deleted!');
-    }
+    } catch (_) { showToast('✅ Artwork deleted!'); }
   }
 
   // ── Toast ──
-  function showToast(msg, isError = false) {
-    const t = document.getElementById('toast');
+  function showToast(msg, isError) {
+    var t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = `toast show${isError ? ' error' : ''}`;
-    setTimeout(() => t.className = 'toast', 3000);
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(function() { t.className = 'toast'; }, 3000);
   }
 
-  // Close modal on overlay click
   document.getElementById('editModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
-
-  loadArtworks();
 </script>
 
 </body>

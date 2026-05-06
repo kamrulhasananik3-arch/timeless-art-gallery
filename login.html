@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Timeless Art Gallery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+    :root {
+      --ink: #1c1c22;
+      --ink-soft: #3c3c46;
+      --accent: #0f4c5c;
+      --accent-bright: #f4b942;
+      --surface: #ffffff;
+      --surface-alt: #f7f4ef;
+      --line: #e4dfd6;
+      --shadow: 0 24px 60px rgba(18, 24, 40, 0.12);
+      --shadow-soft: 0 10px 30px rgba(18, 24, 40, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: clamp(16px, 1.2vw + 14px, 19px); }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(244, 185, 66, 0.18), transparent 40%),
+        radial-gradient(circle at 88% 10%, rgba(15, 76, 92, 0.16), transparent 42%),
+        linear-gradient(135deg, #fbf9f6 0%, #f2efe9 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0e121b 0%, #1d2736 100%);
+      color: #f6f3ef;
+      padding: clamp(28px, 5vw, 80px) 24px clamp(18px, 4vw, 64px);
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      right: -140px; top: -120px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(244, 185, 66, 0.24), transparent 65%);
+      border-radius: 50%;
+    }
+    .brand {
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      position: relative; z-index: 1;
+    }
+    .brand img { width: clamp(160px, 24vw, 240px); height: auto; filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
+    .brand h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: 1.5px; }
+    nav { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    nav a {
+      color: #f6f3ef; text-decoration: none; font-size: 0.9rem; padding: 8px 12px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,0.15);
+      transition: background .2s ease, border .2s ease; font-weight: 500;
+    }
+    nav a:hover { background: rgba(244,185,66,0.2); border-color: rgba(244,185,66,0.4); }
+
+    /* Login card */
+    .login-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(32px, 6vw, 70px) 24px 80px;
+    }
+
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: clamp(28px, 5vw, 48px);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .login-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 6px;
+    }
+    .login-card .subtitle {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    /* Tab switcher */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: var(--surface-alt);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--ink-soft);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Form groups */
+    .form-group { display: grid; gap: 8px; margin-bottom: 18px; }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .form-group input {
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--surface-alt);
+      transition: border 0.2s ease;
+      width: 100%;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    /* Primary button */
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 6px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* Google button */
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-google:hover { background: var(--surface-alt); transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn-google svg { flex-shrink: 0; }
+
+    /* Forgot password link */
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.82rem;
+      color: var(--accent);
+      cursor: pointer;
+      margin-top: -8px;
+      margin-bottom: 14px;
+      text-decoration: none;
+      background: none;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      padding: 0;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* Status messages */
+    .status {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      display: none;
+    }
+    .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+    .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
+    .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; display: block; }
+
+    /* Section visibility */
+    .auth-section { display: none; }
+    .auth-section.active { display: block; }
+
+    footer { padding: 32px 20px; text-align: center; color: #d8d3c8; background: #121823; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Timeless Art Gallery">
+        <rect x="15" y="4" width="70" height="56" rx="4"/>
+        <line x1="10" y1="52" x2="90" y2="52"/>
+        <line x1="50" y1="60" x2="15" y2="88"/>
+        <line x1="50" y1="60" x2="85" y2="88"/>
+        <line x1="50" y1="60" x2="50" y2="88"/>
+        <line x1="28" y1="76" x2="72" y2="76"/>
+      </svg>
+      <h1>Timeless Art Gallery</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="explore.html">Explore</a>
+        <a href="artists.html">Artists</a>
+        <a href="information.html">Information</a>
+        <a href="artworks.html">My Uploads</a>
+        <a href="upload.html">Upload</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to share your artwork with the world.</p>
+
+      <!-- Tab switcher -->
+      <div class="tabs">
+        <button class="tab-btn active" id="tabSignIn" onclick="switchTab('signin')">Sign In</button>
+        <button class="tab-btn" id="tabRegister" onclick="switchTab('register')">Create Account</button>
+      </div>
+
+      <!-- Sign In section -->
+      <div class="auth-section active" id="sectionSignin">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="signinEmail" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signinPassword" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <button class="forgot-link" onclick="showForgotPassword()">Forgot password?</button>
+        <button class="btn-primary" id="signinBtn" onclick="signInWithEmail()">Sign In</button>
+
+        <div class="divider">or</div>
+
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M47.5 24.5c0-1.6-.1-3.2-.4-4.7H24v8.9h13.2c-.6 3-2.4 5.6-5 7.3v6h8.1c4.7-4.4 7.2-10.8 7.2-17.5z" fill="#4285F4"/>
+            <path d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.8-6c-2.1 1.4-4.8 2.3-8.1 2.3-6.2 0-11.5-4.2-13.4-9.9H2.3v6.2C6.3 42.8 14.5 48 24 48z" fill="#34A853"/>
+            <path d="M10.6 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6v-6.2H2.3C.8 16.4 0 20.1 0 24s.8 7.6 2.3 10.8l8.3-6.2z" fill="#FBBC05"/>
+            <path d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.5 0 6.3 5.2 2.3 13.2l8.3 6.2C12.5 13.7 17.8 9.5 24 9.5z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+      </div>
+
+      <!-- Create Account section -->
+      <div class="auth-section" id="sectionRegister">
+        <div class="form-group">
+          <label>Display Name</label>
+          <input type="text" id="registerName" placeholder="Your Name" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="registerEmail" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="registerPassword" placeholder="Min. 6 characters" autocomplete="new-password" />
+        </div>
+        <button class="btn-primary" id="registerBtn" onclick="createAccount()">Create Account</button>
+
+        <div class="divider">or</div>
+
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M47.5 24.5c0-1.6-.1-3.2-.4-4.7H24v8.9h13.2c-.6 3-2.4 5.6-5 7.3v6h8.1c4.7-4.4 7.2-10.8 7.2-17.5z" fill="#4285F4"/>
+            <path d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.8-6c-2.1 1.4-4.8 2.3-8.1 2.3-6.2 0-11.5-4.2-13.4-9.9H2.3v6.2C6.3 42.8 14.5 48 24 48z" fill="#34A853"/>
+            <path d="M10.6 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6v-6.2H2.3C.8 16.4 0 20.1 0 24s.8 7.6 2.3 10.8l8.3-6.2z" fill="#FBBC05"/>
+            <path d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.5 0 6.3 5.2 2.3 13.2l8.3 6.2C12.5 13.7 17.8 9.5 24 9.5z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+      </div>
+
+      <!-- Forgot Password section -->
+      <div class="auth-section" id="sectionForgot">
+        <p style="color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 18px;">
+          Enter your email address and we'll send you a link to reset your password.
+        </p>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="forgotEmail" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <button class="btn-primary" id="forgotBtn" onclick="sendPasswordReset()">Send Reset Email</button>
+        <div style="text-align: center; margin-top: 14px;">
+          <button class="forgot-link" onclick="switchTab('signin')">← Back to Sign In</button>
+        </div>
+      </div>
+
+      <div class="status" id="statusMsg"></div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
+  </footer>
+
+
+
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+      authDomain: "timeless-art-gallery.firebaseapp.com",
+      projectId: "timeless-art-gallery",
+      storageBucket: "timeless-art-gallery.firebasestorage.app",
+      messagingSenderId: "681338547049",
+      appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const fromUrl = new URLSearchParams(location.search).get('from') || 'upload.html';
+
+    // Redirect if already logged in
+    auth.onAuthStateChanged(function(user) {
+      if (user) window.location.href = fromUrl;
+    });
+
+    // ── Tab switching ──
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      clearStatus();
+
+      if (tab === 'signin') {
+        document.getElementById('sectionSignin').classList.add('active');
+        document.getElementById('tabSignIn').classList.add('active');
+        document.getElementById('tabRegister').classList.remove('active');
+        document.querySelector('.login-card h2').textContent = 'Welcome Back';
+        document.querySelector('.login-card .subtitle').textContent = 'Sign in to share your artwork with the world.';
+      } else if (tab === 'register') {
+        document.getElementById('sectionRegister').classList.add('active');
+        document.getElementById('tabRegister').classList.add('active');
+        document.getElementById('tabSignIn').classList.remove('active');
+        document.querySelector('.login-card h2').textContent = 'Create Account';
+        document.querySelector('.login-card .subtitle').textContent = 'Join the gallery and share your work.';
+      }
+    }
+
+    function showForgotPassword() {
+      document.querySelectorAll('.auth-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('sectionForgot').classList.add('active');
+      document.querySelector('.login-card h2').textContent = 'Reset Password';
+      document.querySelector('.login-card .subtitle').textContent = 'We\'ll email you a reset link.';
+      clearStatus();
+    }
+
+    // ── Email sign in ──
+    function signInWithEmail() {
+      const email = document.getElementById('signinEmail').value.trim();
+      const password = document.getElementById('signinPassword').value;
+      if (!email || !password) {
+        showStatus('Please enter your email and password.', 'error');
+        return;
+      }
+      const btn = document.getElementById('signinBtn');
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      auth.signInWithEmailAndPassword(email, password)
+        .then(function() {
+          window.location.href = fromUrl;
+        })
+        .catch(function(err) {
+          showStatus(friendlyError(err.code), 'error');
+          btn.disabled = false;
+          btn.textContent = 'Sign In';
+        });
+    }
+
+    // ── Google sign in ──
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(function() {
+          window.location.href = fromUrl;
+        })
+        .catch(function(err) {
+          if (err.code !== 'auth/popup-closed-by-user') {
+            showStatus(friendlyError(err.code), 'error');
+          }
+        });
+    }
+
+    // ── Create account ──
+    function createAccount() {
+      const name = document.getElementById('registerName').value.trim();
+      const email = document.getElementById('registerEmail').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      if (!email || !password) {
+        showStatus('Please fill in all fields.', 'error');
+        return;
+      }
+      if (password.length < 6) {
+        showStatus('Password must be at least 6 characters.', 'error');
+        return;
+      }
+      const btn = document.getElementById('registerBtn');
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(function(result) {
+          const updates = [];
+          if (name) updates.push(result.user.updateProfile({ displayName: name }));
+          return Promise.all(updates);
+        })
+        .then(function() {
+          window.location.href = fromUrl;
+        })
+        .catch(function(err) {
+          showStatus(friendlyError(err.code), 'error');
+          btn.disabled = false;
+          btn.textContent = 'Create Account';
+        });
+    }
+
+    // ── Forgot password ──
+    function sendPasswordReset() {
+      const email = document.getElementById('forgotEmail').value.trim();
+      if (!email) {
+        showStatus('Please enter your email address.', 'error');
+        return;
+      }
+      const btn = document.getElementById('forgotBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      auth.sendPasswordResetEmail(email)
+        .then(function() {
+          showStatus('✅ Reset email sent! Check your inbox.', 'success');
+          btn.disabled = false;
+          btn.textContent = 'Send Reset Email';
+        })
+        .catch(function(err) {
+          showStatus(friendlyError(err.code), 'error');
+          btn.disabled = false;
+          btn.textContent = 'Send Reset Email';
+        });
+    }
+
+    // ── Helpers ──
+    function showStatus(msg, type) {
+      const el = document.getElementById('statusMsg');
+      el.textContent = msg;
+      el.className = 'status ' + type;
+    }
+
+    function clearStatus() {
+      const el = document.getElementById('statusMsg');
+      el.textContent = '';
+      el.className = 'status';
+    }
+
+    function friendlyError(code) {
+      const messages = {
+        'auth/user-not-found': 'No account found with that email.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/email-already-in-use': 'An account with this email already exists.',
+        'auth/weak-password': 'Password should be at least 6 characters.',
+        'auth/too-many-requests': 'Too many attempts. Please wait a few minutes and try again.',
+        'auth/network-request-failed': 'Network error. Check your connection.',
+        'auth/invalid-credential': 'Incorrect email or password. Please try again.',
+        'auth/operation-not-allowed': 'This sign-in method is not enabled. Enable it in Firebase Console → Authentication → Sign-in method.',
+        'auth/unauthorized-domain': 'This domain is not authorised. Add it in Firebase Console → Authentication → Settings → Authorised domains.',
+        'auth/popup-blocked': 'Popup was blocked by your browser. Please allow popups for this site.',
+        'auth/cancelled-popup-request': 'Sign-in cancelled.',
+        'auth/internal-error': 'An internal error occurred. Please try again.',
+        'auth/configuration-not-found': 'Firebase auth is not configured. Enable Email/Password in Firebase Console → Authentication → Sign-in method.',
+      };
+      return messages[code] || ('Sign-in error: ' + code);
+    }
+
+    // Allow Enter key to submit forms
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      const active = document.querySelector('.auth-section.active');
+      if (!active) return;
+      if (active.id === 'sectionSignin') signInWithEmail();
+      else if (active.id === 'sectionRegister') createAccount();
+      else if (active.id === 'sectionForgot') sendPasswordReset();
+    });
+  </script>
+
+</body>
+</html>

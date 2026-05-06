@@ -4,89 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery — Timeless Art Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-    :root {
-      --ink: #1c1c22;
-      --ink-soft: #3c3c46;
-      --accent: #0f4c5c;
-      --accent-bright: #f4b942;
-      --surface: #ffffff;
-      --surface-alt: #f7f4ef;
-      --line: #e4dfd6;
-      --shadow: 0 24px 60px rgba(18, 24, 40, 0.12);
-      --shadow-soft: 0 10px 30px rgba(18, 24, 40, 0.08);
-    }
+    /* AUTH WIDGET — inline copy so @import ordering cannot suppress styles.css rules */
+    .auth-widget { position: fixed; top: 18px; right: 24px; z-index: 1001; display: flex; align-items: center; }
+    .auth-signin-btn { background: rgba(244,185,66,0.15); border: 1px solid rgba(244,185,66,0.45); color: #f6f3ef; padding: 9px 22px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background .2s, border .2s, transform .2s; display: none; }
+    .auth-signin-btn:hover { background: rgba(244,185,66,0.3); border-color: rgba(244,185,66,0.8); transform: translateY(-1px); }
+    .auth-user-pill { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer; position: relative; }
+    .auth-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f4b942, #e8a82e); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #1c1c22; flex-shrink: 0; }
+    .auth-name { font-size: 0.84rem; font-weight: 600; color: #f6f3ef; max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .auth-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: #1a2333; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px; min-width: 160px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .auth-dropdown.open { display: block; }
+    .auth-dd-item { display: block; width: 100%; padding: 10px 14px; border-radius: 8px; background: none; border: none; color: #f6f3ef; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; text-decoration: none; transition: background .15s; }
+    .auth-dd-item:hover { background: rgba(255,255,255,0.07); }
+    .auth-dd-item.danger { color: #f87171; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: clamp(16px, 1.2vw + 14px, 19px); }
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 12%, rgba(244, 185, 66, 0.18), transparent 40%),
-        radial-gradient(circle at 88% 10%, rgba(15, 76, 92, 0.16), transparent 42%),
-        linear-gradient(135deg, #fbf9f6 0%, #f2efe9 100%);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #0e121b 0%, #1d2736 100%);
-      color: #f6f3ef;
-      padding: clamp(28px, 5vw, 80px) 24px clamp(18px, 4vw, 64px);
-      position: relative;
-      overflow: hidden;
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      right: -140px;
-      top: -120px;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(244, 185, 66, 0.24), transparent 65%);
-      border-radius: 50%;
-    }
-    .brand {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      position: relative;
-      z-index: 1;
-    }
-    .brand img {
-      width: clamp(160px, 24vw, 240px);
-      height: auto;
-      filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-    }
-    .brand h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      letter-spacing: 1.5px;
-    }
-    nav {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-    nav a {
-      color: #f6f3ef;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      transition: background 0.2s ease, border 0.2s ease;
-      font-weight: 500;
-    }
-    nav a:hover {
-      background: rgba(244, 185, 66, 0.2);
-      border-color: rgba(244, 185, 66, 0.4);
-    }
+    nav { justify-content: center; }
 
     .hero {
       max-width: 1200px;
@@ -103,64 +38,38 @@
       line-height: 1.1;
       margin-bottom: 16px;
     }
-    .hero p {
-      color: var(--ink-soft);
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-    }
-    .hero .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .hero p { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 20px; }
+    .hero .stats { display: flex; flex-wrap: wrap; gap: 12px; }
     .hero .stat {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px 16px;
-      box-shadow: var(--shadow-soft);
-      min-width: 120px;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 14px; padding: 12px 16px;
+      box-shadow: var(--shadow-soft); min-width: 120px;
     }
     .hero .stat strong { display: block; font-size: 1.2rem; }
     .hero .stat span { font-size: 0.8rem; color: var(--ink-soft); }
     .hero-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: var(--shadow);
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 22px; padding: 24px; box-shadow: var(--shadow);
     }
     .hero-card .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.12em;
     }
 
     .filter-row {
-      max-width: 1200px;
-      margin: 24px auto 0;
-      padding: 0 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      max-width: 1200px; margin: 24px auto 0;
+      padding: 0 24px; display: flex; flex-wrap: wrap; gap: 10px;
     }
     .chip {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      font-size: 0.85rem;
-      color: var(--ink-soft);
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface);
+      font-size: 0.85rem; color: var(--ink-soft);
+      cursor: pointer; transition: background .15s, border .15s;
+      font-family: 'Space Grotesk', sans-serif;
     }
-    .chip.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
+    .chip:hover { background: var(--surface-alt); }
+    .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
     .content {
       max-width: 1200px;
@@ -173,57 +82,40 @@
       gap: 22px;
     }
     .gallery-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 20px; overflow: hidden;
       box-shadow: var(--shadow-soft);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow);
-    }
+    .gallery-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
     .gallery-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
+      width: 100%; height: 220px; object-fit: cover; display: block;
     }
-    .gallery-meta {
-      padding: 16px;
-      display: grid;
-      gap: 6px;
-    }
-    .gallery-meta h3 {
-      font-size: 1rem;
-      color: var(--ink);
-    }
-    .gallery-meta span {
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-    }
+    .gallery-meta { padding: 16px; display: grid; gap: 6px; }
+    .gallery-meta h3 { font-size: 1rem; color: var(--ink); }
+    .gallery-meta span { font-size: 0.85rem; color: var(--ink-soft); }
     .gallery-meta .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.12em;
     }
 
-    .reviews {
-      margin-top: 44px;
-      display: grid;
-      gap: 20px;
+    .gallery-loading {
+      text-align: center; padding: 48px 20px;
+      color: var(--ink-soft); font-size: 1rem;
     }
+    .gallery-loading .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--line); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .8s linear infinite;
+      margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .reviews { margin-top: 44px; display: grid; gap: 20px; }
     .reviews-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
     .reviews-header h3 {
       font-family: 'Playfair Display', serif;
@@ -236,95 +128,47 @@
       gap: 18px;
     }
     .review-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      gap: 12px;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 20px; padding: 18px;
+      box-shadow: var(--shadow-soft); display: grid; gap: 12px;
     }
-    .review-card .quote {
-      font-size: 1.05rem;
-      color: var(--ink);
-    }
-    .review-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .review-card .quote { font-size: 1.05rem; color: var(--ink); }
+    .review-meta { display: flex; align-items: center; gap: 12px; }
     .review-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(15, 76, 92, 0.85), rgba(244, 185, 66, 0.85));
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(15,76,92,0.85), rgba(244,185,66,0.85));
+      color: #fff; display: grid; place-items: center;
+      font-weight: 600; letter-spacing: 0.5px;
     }
-    .review-meta h4 {
-      font-size: 0.95rem;
-      margin-bottom: 2px;
-    }
+    .review-meta h4 { font-size: 0.95rem; margin-bottom: 2px; }
     .review-meta span { font-size: 0.8rem; color: var(--ink-soft); }
-    .review-rating {
-      display: inline-flex;
-      gap: 2px;
-      color: var(--accent-bright);
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-    }
+    .review-rating { display: inline-flex; gap: 2px; color: var(--accent-bright); font-size: 0.85rem; letter-spacing: 1px; }
 
     .cta {
-      margin-top: 40px;
-      padding: 26px;
-      background: linear-gradient(135deg, rgba(15, 76, 92, 0.1), rgba(244, 185, 66, 0.15));
-      border-radius: 22px;
-      border: 1px solid rgba(15, 76, 92, 0.18);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
+      margin-top: 40px; padding: 26px;
+      background: linear-gradient(135deg, rgba(15,76,92,0.1), rgba(244,185,66,0.15));
+      border-radius: 22px; border: 1px solid rgba(15,76,92,0.18);
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 18px; flex-wrap: wrap;
     }
-    .cta h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-    }
+    .cta h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
     .cta p { color: var(--ink-soft); }
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 
-    footer {
-      margin-top: 80px;
-      padding: 32px 20px;
-      text-align: center;
-      color: #d8d3c8;
-      background: #121823;
-    }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <img src="https://www.shutterstock.com/image-vector/easel-one-line-drawing-minimalist-600nw-2165618019.jpg" alt="Timeless Art Gallery Logo" />
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Timeless Art Gallery">
+        <rect x="15" y="4" width="70" height="56" rx="4"/>
+        <line x1="10" y1="52" x2="90" y2="52"/>
+        <line x1="50" y1="60" x2="15" y2="88"/>
+        <line x1="50" y1="60" x2="85" y2="88"/>
+        <line x1="50" y1="60" x2="50" y2="88"/>
+        <line x1="28" y1="76" x2="72" y2="76"/>
+      </svg>
       <h1>Timeless Art Gallery</h1>
       <nav>
         <a href="index.html">Home</a>
@@ -336,6 +180,18 @@
         <a href="upload.html">Upload</a>
       </nav>
     </div>
+    <div id="authWidget" class="auth-widget">
+      <a href="login.html" id="wSignIn" class="auth-signin-btn">Sign In</a>
+      <div id="wUser" class="auth-user-pill" onclick="toggleAuthDd(event)">
+        <div id="wAvatar" class="auth-avatar">?</div>
+        <span id="wName" class="auth-name"></span>
+        <div id="wDropdown" class="auth-dropdown">
+          <a href="upload.html" class="auth-dd-item">Upload Art</a>
+          <a href="artworks.html" class="auth-dd-item">My Uploads</a>
+          <button class="auth-dd-item danger" onclick="authSignOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <section class="hero">
@@ -343,136 +199,34 @@
       <h2>A living archive of modern and timeless works.</h2>
       <p>Browse curated selections across mediums, each accompanied by a short editorial note and style tag.</p>
       <div class="stats">
-        <div class="stat">
-          <strong>2,340</strong>
-          <span>Total works</span>
-        </div>
-        <div class="stat">
-          <strong>86</strong>
-          <span>Artists featured</span>
-        </div>
-        <div class="stat">
-          <strong>14</strong>
-          <span>Mediums</span>
-        </div>
+        <div class="stat"><strong>2,340</strong><span>Total works</span></div>
+        <div class="stat"><strong>86</strong><span>Artists featured</span></div>
+        <div class="stat"><strong>14</strong><span>Mediums</span></div>
       </div>
     </div>
     <div class="hero-card">
       <span class="tag">Spotlight</span>
-      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin: 10px 0;">Nocturne Series</h3>
-      <p style="color: var(--ink-soft);">A rotating curation of low-light works exploring texture, contrast, and reflective surfaces.</p>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;margin:10px 0;">Nocturne Series</h3>
+      <p style="color:var(--ink-soft);">A rotating curation of low-light works exploring texture, contrast, and reflective surfaces.</p>
     </div>
   </section>
 
   <div class="filter-row">
-    <span class="chip active">All Works</span>
-    <span class="chip">Abstract</span>
-    <span class="chip">Portrait</span>
-    <span class="chip">Landscape</span>
-    <span class="chip">Digital</span>
-    <span class="chip">Sculpture</span>
-    <span class="chip">Photography</span>
+    <span class="chip active" data-filter="All Works">All Works</span>
+    <span class="chip" data-filter="Abstract">Abstract</span>
+    <span class="chip" data-filter="Portrait">Portrait</span>
+    <span class="chip" data-filter="Landscape">Landscape</span>
+    <span class="chip" data-filter="Digital">Digital</span>
+    <span class="chip" data-filter="Sculpture">Sculpture</span>
+    <span class="chip" data-filter="Photography">Photography</span>
   </div>
 
   <main class="content">
-    <div class="gallery-grid">
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/320?random=31" alt="Ethereal Dreams artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Abstract</span>
-          <h3>Ethereal Dreams</h3>
-          <span>Mixed pigment on canvas</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/360?random=32" alt="Silent Gaze artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Portrait</span>
-          <h3>Silent Gaze</h3>
-          <span>Oil on linen</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/300?random=33" alt="Mountain Serenity artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Landscape</span>
-          <h3>Mountain Serenity</h3>
-          <span>Watercolor and graphite</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/380?random=34" alt="Digital Dreams artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Digital</span>
-          <h3>Digital Dreams</h3>
-          <span>Rendered composition</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/340?random=35" alt="Timeless Moments artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Still Life</span>
-          <h3>Timeless Moments</h3>
-          <span>Charcoal study</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/330?random=36" alt="Color Symphony artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Abstract</span>
-          <h3>Color Symphony</h3>
-          <span>Large format canvas</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/350?random=37" alt="Urban Sketches artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Contemporary</span>
-          <h3>Urban Sketches</h3>
-          <span>Ink and wash</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/310?random=38" alt="Neon Nights artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Digital</span>
-          <h3>Neon Nights</h3>
-          <span>Light study</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/370?random=39" alt="Ocean's Whisper artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Seascape</span>
-          <h3>Ocean's Whisper</h3>
-          <span>Oil on panel</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/320?random=40" alt="Geometric Harmony artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Modern</span>
-          <h3>Geometric Harmony</h3>
-          <span>Screen print</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/360?random=41" alt="Watercolor Flow artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Watercolor</span>
-          <h3>Watercolor Flow</h3>
-          <span>Paper series</span>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="https://picsum.photos/400/320?random=42" alt="Form and Space artwork" />
-        <div class="gallery-meta">
-          <span class="tag">Sculpture</span>
-          <h3>Form and Space</h3>
-          <span>Bronze and light</span>
-        </div>
-      </article>
+    <div id="galleryLoading" class="gallery-loading">
+      <div class="spinner"></div>
+      <p>Loading artworks from the Met Museum collection…</p>
     </div>
+    <div class="gallery-grid" id="galleryGrid" style="display:none;"></div>
 
     <section class="reviews">
       <div class="reviews-header">
@@ -484,68 +238,50 @@
       <div class="review-grid">
         <article class="review-card">
           <div class="review-rating">★★★★★</div>
-          <p class="quote">“The curation feels intentional and fresh. I can actually feel the narrative between pieces.”</p>
+          <p class="quote">"The curation feels intentional and fresh. I can actually feel the narrative between pieces."</p>
           <div class="review-meta">
             <div class="review-avatar">AL</div>
-            <div>
-              <h4>Aisha Lewis</h4>
-              <span>Collector · London</span>
-            </div>
+            <div><h4>Aisha Lewis</h4><span>Collector · London</span></div>
           </div>
         </article>
         <article class="review-card">
           <div class="review-rating">★★★★★</div>
-          <p class="quote">“A beautiful mix of classic and contemporary. The editorial notes add so much context.”</p>
+          <p class="quote">"A beautiful mix of classic and contemporary. The editorial notes add so much context."</p>
           <div class="review-meta">
             <div class="review-avatar">JM</div>
-            <div>
-              <h4>Jonah Miles</h4>
-              <span>Art Student · Glasgow</span>
-            </div>
+            <div><h4>Jonah Miles</h4><span>Art Student · Glasgow</span></div>
           </div>
         </article>
         <article class="review-card">
           <div class="review-rating">★★★★☆</div>
-          <p class="quote">“The digital works feel curated, not random. It’s rare to see that level of care online.”</p>
+          <p class="quote">"The digital works feel curated, not random. It's rare to see that level of care online."</p>
           <div class="review-meta">
             <div class="review-avatar">SP</div>
-            <div>
-              <h4>Sophia Park</h4>
-              <span>Designer · Seoul</span>
-            </div>
+            <div><h4>Sophia Park</h4><span>Designer · Seoul</span></div>
           </div>
         </article>
         <article class="review-card">
           <div class="review-rating">★★★★★</div>
-          <p class="quote">“Every visit I discover new artists I want to follow. The layout is calm and elegant.”</p>
+          <p class="quote">"Every visit I discover new artists I want to follow. The layout is calm and elegant."</p>
           <div class="review-meta">
             <div class="review-avatar">CR</div>
-            <div>
-              <h4>Carlos Ruiz</h4>
-              <span>Photographer · Madrid</span>
-            </div>
+            <div><h4>Carlos Ruiz</h4><span>Photographer · Madrid</span></div>
           </div>
         </article>
         <article class="review-card">
           <div class="review-rating">★★★★☆</div>
-          <p class="quote">“The gallery works as a study tool. Perfect for quick research and mood-boarding.”</p>
+          <p class="quote">"The gallery works as a study tool. Perfect for quick research and mood-boarding."</p>
           <div class="review-meta">
             <div class="review-avatar">NM</div>
-            <div>
-              <h4>Nora Malik</h4>
-              <span>Curator · Dubai</span>
-            </div>
+            <div><h4>Nora Malik</h4><span>Curator · Dubai</span></div>
           </div>
         </article>
         <article class="review-card">
           <div class="review-rating">★★★★★</div>
-          <p class="quote">“The category flow is excellent and the reviews section adds real community energy.”</p>
+          <p class="quote">"The category flow is excellent and the reviews section adds real community energy."</p>
           <div class="review-meta">
             <div class="review-avatar">DT</div>
-            <div>
-              <h4>Devon Tate</h4>
-              <span>Illustrator · Toronto</span>
-            </div>
+            <div><h4>Devon Tate</h4><span>Illustrator · Toronto</span></div>
           </div>
         </article>
       </div>
@@ -563,6 +299,126 @@
   <footer>
     © 2026 Timeless Art Gallery — Celebrating Beauty in Every Brushstroke
   </footer>
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCcKvCTheGlhpOEe_FdaORFWz2MxR9kPZo",
+        authDomain: "timeless-art-gallery.firebaseapp.com",
+        projectId: "timeless-art-gallery",
+        storageBucket: "timeless-art-gallery.firebasestorage.app",
+        messagingSenderId: "681338547049",
+        appId: "1:681338547049:web:878e0d498d1340c4a06bf8"
+      });
+    }
+    function toggleAuthDd(e) { e.stopPropagation(); document.getElementById('wDropdown').classList.toggle('open'); }
+    document.addEventListener('click', function() { var dd = document.getElementById('wDropdown'); if (dd) dd.classList.remove('open'); });
+    function authSignOut() { firebase.auth().signOut().then(function() { window.location.href = 'index.html'; }); }
+    firebase.auth().onAuthStateChanged(function(user) {
+      var si = document.getElementById('wSignIn');
+      var up = document.getElementById('wUser');
+      if (!si || !up) return;
+      if (user) {
+        si.style.display = 'none';
+        up.style.display = 'flex';
+        var n = user.displayName || user.email || 'User';
+        document.getElementById('wName').textContent = n.split(' ')[0];
+        document.getElementById('wAvatar').textContent = n[0].toUpperCase();
+      } else {
+        si.style.display = 'flex';
+        up.style.display = 'none';
+        si.href = 'login.html?from=' + encodeURIComponent(location.href);
+      }
+    });
+  </script>
+
+  <script>
+    const MET_SEARCH = 'https://collectionapi.metmuseum.org/public/collection/v1/search';
+    const MET_OBJECT = 'https://collectionapi.metmuseum.org/public/collection/v1/objects';
+
+    const GALLERY_CATS = [
+      { tag: 'Abstract',     query: 'abstract expressionism painting' },
+      { tag: 'Portrait',     query: 'portrait painting oil canvas' },
+      { tag: 'Landscape',    query: 'landscape painting nature' },
+      { tag: 'Digital',      query: 'screen print graphic poster' },
+      { tag: 'Sculpture',    query: 'marble sculpture figure' },
+      { tag: 'Photography',  query: 'photograph 19th century portrait' }
+    ];
+
+    async function fetchPair(query, tag) {
+      var results = [];
+      try {
+        var r = await fetch(MET_SEARCH + '?hasImages=true&q=' + encodeURIComponent(query));
+        if (!r.ok) return results;
+        var d = await r.json();
+        var ids = (d.objectIDs || []).slice(0, 30);
+        for (var i = 0; i < ids.length && results.length < 2; i++) {
+          try {
+            var or = await fetch(MET_OBJECT + '/' + ids[i]);
+            if (!or.ok) continue;
+            var obj = await or.json();
+            if (obj.primaryImage) {
+              results.push({
+                tag: tag,
+                title: obj.title || tag + ' Artwork',
+                artist: obj.artistDisplayName || '',
+                date: obj.objectDate || '',
+                img: obj.primaryImage
+              });
+            }
+          } catch (_) {}
+        }
+      } catch (_) {}
+      return results;
+    }
+
+    async function loadGallery() {
+      var grid = document.getElementById('galleryGrid');
+      var loading = document.getElementById('galleryLoading');
+      var allData = await Promise.all(GALLERY_CATS.map(function(c) { return fetchPair(c.query, c.tag); }));
+      loading.style.display = 'none';
+      var items = [].concat.apply([], allData);
+      if (!items.length) {
+        loading.textContent = 'Unable to load artworks at this time.';
+        loading.style.display = 'block';
+        return;
+      }
+      items.forEach(function(item, idx) {
+        var card = document.createElement('article');
+        card.className = 'gallery-card';
+        card.dataset.tag = item.tag;
+        var desc = [item.artist, item.date].filter(Boolean).join(' · ');
+        card.innerHTML =
+          '<img src="' + item.img + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy" ' +
+          'onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=\'https://picsum.photos/400/320?random=' + (idx + 50) + '\'}">' +
+          '<div class="gallery-meta">' +
+          '<span class="tag">' + item.tag + '</span>' +
+          '<h3>' + item.title + '</h3>' +
+          '<span>' + (desc || item.tag + ' · Met Museum') + '</span>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+      grid.style.display = 'grid';
+    }
+
+    // Filter chips
+    document.querySelectorAll('.chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        var filter = chip.dataset.filter;
+        document.querySelectorAll('.gallery-card').forEach(function(card) {
+          card.style.display = (filter === 'All Works' || card.dataset.tag === filter) ? '' : 'none';
+        });
+      });
+    });
+
+    loadGallery();
+  </script>
 
 </body>
 </html>
